@@ -3,7 +3,7 @@
    L'application se met donc à jour toute seule dès qu'il y a du réseau,
    et reste utilisable sans connexion (utile en montagne). */
 
-const CACHE = 'mon-sac-a-dos-v3';
+const CACHE = 'mon-sac-a-dos-v4';
 
 const FICHIERS = [
   './',
@@ -280,6 +280,7 @@ const FICHIERS = [
   './emoji/1faaa.svg',
   './emoji/1faab.svg',
   './emoji/1fab5.svg',
+  './emoji/1fab6.svg',
   './emoji/1fac0.svg',
   './emoji/1fad0.svg',
   './emoji/1fad1.svg',
@@ -311,6 +312,7 @@ const FICHIERS = [
   './emoji/26d4.svg',
   './emoji/26ea.svg',
   './emoji/26f0.svg',
+  './emoji/26f1.svg',
   './emoji/26f4.svg',
   './emoji/26f8.svg',
   './emoji/26fa.svg',

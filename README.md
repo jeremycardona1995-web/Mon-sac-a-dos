@@ -46,7 +46,7 @@ menu **⋯**, qui propose celui de la vue en cours.
 - **Renommer, peser ou supprimer** un équipement ou un groupe : appui long sur
   téléphone, clic droit sur ordinateur.
 - **Choisir un symbole** : dans la fenêtre d'ajout, deux boutons ouvrent un
-  sélecteur de 300 symboles répartis en 20 thèmes, l'un pour l'équipement,
+  sélecteur de 302 symboles répartis en 20 thèmes, l'un pour l'équipement,
   l'autre pour le groupe. Un champ de recherche les filtre par nom français —
   « tente », « corde », « réchaud » — sans tenir compte des accents. Votre
   saisie est conservée pendant le choix.
@@ -77,8 +77,10 @@ Une jauge situe votre menu entre « lourd » et « ultraléger », et chaque ali
 affiche sa propre densité en couleur.
 
 **Ajouter un aliment** : le **+** ouvre une bibliothèque d'une quarantaine
-d'aliments de randonnée déjà renseignés. Tapez les premières lettres, touchez
-la proposition, ajustez la quantité. Vous pouvez aussi créer un aliment libre.
+d'aliments de randonnée déjà renseignés, **rangés par groupe** — plats et
+féculents, viandes et fromages, fruits secs, sucré, matières grasses, boissons,
+frais. Parcourez les rayons, ou tapez les premières lettres pour chercher
+directement. Vous pouvez aussi créer un aliment libre.
 
 **Ajuster les quantités** : glissez vers la droite pour ajouter une unité, vers
 la gauche pour en retirer une. Appui long pour modifier ou supprimer.
