@@ -28,8 +28,9 @@ L'entête affiche en permanence votre progression : un anneau, le nombre
 d'objets rangés, et ce qu'il reste à trouver. Tout ce qui est en ambre est ce
 qui vous manque.
 
-Un tutoriel s'affiche au premier lancement. Vous pouvez le revoir à tout
-moment depuis le menu **⋯**.
+Un tutoriel s'affiche au premier lancement, et un second la première fois que
+vous ouvrez la vue Nourriture. Vous pouvez les revoir à tout moment depuis le
+menu **⋯**, qui propose celui de la vue en cours.
 
 ## Trouver et filtrer
 
@@ -44,6 +45,9 @@ moment depuis le menu **⋯**.
 - **Ajouter** un équipement ou créer un groupe : le bouton vert **+** en bas à droite.
 - **Renommer, peser ou supprimer** un équipement ou un groupe : appui long sur
   téléphone, clic droit sur ordinateur.
+- **Choisir un symbole** : dans la fenêtre d'ajout, deux boutons ouvrent un
+  sélecteur de 129 émojis classés par thème, l'un pour l'équipement, l'autre
+  pour le groupe. Votre saisie est conservée pendant le choix.
 - **Peser son sac** : indiquez un poids en grammes sur les objets qui comptent.
   Le total de ce qui est rangé s'affiche dans l'entête, avec entre parenthèses
   ce que pèse encore ce qu'il reste à prendre. Les objets sans poids sont

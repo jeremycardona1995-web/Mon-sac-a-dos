@@ -474,73 +474,12 @@
 <div class="voile-tuto" id="tuto">
     <div class="tuto-carte">
         <div class="tuto-entete">
-            <h2>🎒 Comment ça marche</h2>
-            <p class="tuto-intro">Trois gestes, et c'est tout.</p>
+            <h2 id="tuto-titre"></h2>
+            <p class="tuto-intro" id="tuto-intro"></p>
         </div>
-
-        <div class="tuto-corps">
-
-        <div class="etape">
-            <div class="sym v">→</div>
-            <div>
-                <strong>Glisse vers la droite</strong>
-                <p>L'équipement avance d'un cran :<br>
-                   <b>Réserve</b> → <b>À prendre</b> → <b>Rangé</b>.</p>
-            </div>
-        </div>
-
-        <div class="etape">
-            <div class="sym am">←</div>
-            <div>
-                <strong>Glisse vers la gauche</strong>
-                <p>Il recule d'un cran :<br>
-                   <b>Rangé</b> → <b>À prendre</b> → <b>Réserve</b>.</p>
-            </div>
-        </div>
-
-        <div class="etape">
-            <div class="sym">🔁</div>
-            <div>
-                <strong>Le geste dépend d'où il est</strong>
-                <p>Pendant le glissement, une couleur apparaît sous la ligne : elle annonce la section d'arrivée. En bout de chaîne, la ligne résiste et rien ne bouge.</p>
-            </div>
-        </div>
-
-        <div class="etape">
-            <div class="sym">👆</div>
-            <div>
-                <strong>Appui long</strong>
-                <p>Ouvre le menu de l'objet : renommer, <b>indiquer le poids</b> ou supprimer. Fonctionne aussi sur le titre d'un groupe.</p>
-            </div>
-        </div>
-
-        <div class="etape">
-            <div class="sym v">+</div>
-            <div>
-                <strong>Les boutons en bas</strong>
-                <p>Le <b>+</b> vert ajoute un équipement ou un aliment.
-                   Le bouton au-dessus bascule entre le <b>sac</b> 🎒 et
-                   la <b>nourriture</b> 🍲.</p>
-            </div>
-        </div>
-
-        <div class="etape">
-            <div class="sym">⋯</div>
-            <div>
-                <strong>Le menu en haut</strong>
-                <p>Nouvelle rando, sauvegarde de ta liste, et ce tutoriel.</p>
-            </div>
-        </div>
-
-        <div class="tuto-note">
-            Un appui simple ne fait rien : c'est le glissement qui range.
-            Sur ordinateur, glisse en maintenant le bouton de la souris.
-        </div>
-
-        </div><!-- /tuto-corps -->
-
+        <div class="tuto-corps" id="tuto-corps"></div>
         <div class="tuto-pied">
-            <button class="act principal" id="tuto-ok">C'est parti !</button>
+            <button class="act principal" id="tuto-ok">C’est parti !</button>
         </div>
     </div>
 </div>
@@ -1014,7 +953,9 @@ function menuGroupe(groupe) {
    Ajout de matériel
    ========================================================================== */
 
-function ajouterMateriel() {
+function ajouterMateriel(etat) {
+    etat = etat || { objet: '', groupe: null, poids: '', nouveauGroupe: '' };
+    fermerFeuille();
     ouvrirFeuille('Ajouter du matériel', corps => {
         corps.innerHTML =
             '<label for="f-objet">Nouvel équipement</label>' +
@@ -1031,10 +972,41 @@ function ajouterMateriel() {
             select.appendChild(opt);
         }
 
+        const champObjet = corps.querySelector('#f-objet');
+        const champPoids = corps.querySelector('#f-poids');
+        champObjet.value = etat.objet;
+        champPoids.value = etat.poids;
+        if (etat.groupe && categories[etat.groupe]) select.value = etat.groupe;
+
+        /* Mémorise la saisie avant d'ouvrir le sélecteur, puis rouvre la
+           feuille pré-remplie : rien n'est perdu au passage. */
+        function memoriser() {
+            return {
+                objet: champObjet.value, groupe: select.value,
+                poids: champPoids.value,
+                nouveauGroupe: bloc.querySelector('#f-nouveau-groupe').value
+            };
+        }
+
+        function prefixer(texte, emoji) {
+            const sansSymbole = texte.replace(/^\S+\s+/, function (debut) {
+                return /[\u0000-\u00ff]/.test(debut.trim()[0]) ? debut : '';
+            });
+            return (emoji + ' ' + sansSymbole).trim();
+        }
+
+        bouton(corps, '😀 Choisir un symbole', '', () => {
+            const enCours = memoriser();
+            choisirEmoji(emoji => {
+                enCours.objet = prefixer(enCours.objet, emoji);
+                ajouterMateriel(enCours);
+            }, () => ajouterMateriel(enCours));
+        });
+
         bouton(corps, 'Ajouter à la liste', 'principal', () => {
-            const nom = corps.querySelector('#f-objet').value.trim();
+            const nom = champObjet.value.trim();
             const groupe = select.value;
-            const p = parseInt(corps.querySelector('#f-poids').value, 10);
+            const p = parseInt(champPoids.value, 10);
             if (!nom) { toast('Donne un nom à l\'équipement'); return; }
             if (!groupe) { toast('Crée d\'abord un groupe'); return; }
             if (categories[groupe].includes(nom)) { toast('Cet équipement existe déjà'); return; }
@@ -1053,6 +1025,15 @@ function ajouterMateriel() {
             '<label for="f-nouveau-groupe">Nouveau groupe</label>' +
             '<input type="text" id="f-nouveau-groupe" placeholder="🧗 Escalade">';
         corps.appendChild(bloc);
+        bloc.querySelector('#f-nouveau-groupe').value = etat.nouveauGroupe;
+
+        bouton(corps, '😀 Symbole du groupe', '', () => {
+            const enCours = memoriser();
+            choisirEmoji(emoji => {
+                enCours.nouveauGroupe = prefixer(enCours.nouveauGroupe, emoji);
+                ajouterMateriel(enCours);
+            }, () => ajouterMateriel(enCours));
+        });
 
         bouton(corps, 'Créer le groupe', '', () => {
             const nom = bloc.querySelector('#f-nouveau-groupe').value.trim();
@@ -1088,7 +1069,8 @@ document.getElementById('btn-menu').onclick = () => {
         });
 
         bouton(corps, '🛒 Liste de courses', '', () => { fermerFeuille(); ouvrirCourses(); });
-        bouton(corps, '❓ Revoir le tutoriel', '', () => { fermerFeuille(); ouvrirTuto(); });
+        bouton(corps, vue === 'food' ? '❓ Tutoriel de la nourriture' : '❓ Tutoriel du sac',
+               '', () => { fermerFeuille(); ouvrirTuto(); });
         bouton(corps, '💾 Exporter ma liste', '', () => { fermerFeuille(); exporter(); });
         bouton(corps, '📂 Importer une liste', '', () => {
             fermerFeuille();
@@ -1693,6 +1675,7 @@ function basculerVue() {
     majBoutonVue();
     afficher();
     window.scrollTo(0, 0);
+    if (vue === 'food' && !tutoDejaVu('food')) ouvrirTuto('food');
 }
 
 document.getElementById('btn-vue').onclick = basculerVue;
@@ -1701,11 +1684,81 @@ document.getElementById('btn-vue').onclick = basculerVue;
    Tutoriel — affiché une fois, puis rappelable depuis le menu
    ========================================================================== */
 
-const CLE_TUTO = 'tutoVuTrekV1';
-const voileTuto = document.getElementById('tuto');
+/* Un tutoriel par vue : chacun s'affiche une fois, à la première ouverture
+   de sa vue, puis reste rappelable depuis le menu. */
+const TUTOS = {
+    sac: {
+        cle: 'tutoVuTrekV1',
+        titre: '🎒 Comment ça marche',
+        intro: 'Trois gestes, et c\u2019est tout.',
+        etapes: [
+            ['→', 'v', 'Glisse vers la droite',
+             'L\u2019équipement avance d\u2019un cran :<br><b>Réserve</b> → <b>À prendre</b> → <b>Rangé</b>.'],
+            ['←', 'am', 'Glisse vers la gauche',
+             'Il recule d\u2019un cran :<br><b>Rangé</b> → <b>À prendre</b> → <b>Réserve</b>.'],
+            ['🔁', '', 'Le geste dépend d\u2019où il est',
+             'Pendant le glissement, une couleur apparaît sous la ligne : elle annonce la section ' +
+             'd\u2019arrivée. En bout de chaîne, la ligne résiste et rien ne bouge.'],
+            ['👆', '', 'Appui long',
+             'Ouvre le menu de l\u2019objet : renommer, <b>indiquer le poids</b> ou supprimer. ' +
+             'Fonctionne aussi sur le titre d\u2019un groupe.'],
+            ['+', 'v', 'Les boutons en bas',
+             'Le <b>+</b> vert ajoute un équipement ou un aliment. Le bouton au-dessus bascule ' +
+             'entre le <b>sac</b> 🎒 et la <b>nourriture</b> 🍲.'],
+            ['⋯', '', 'Le menu en haut',
+             'Nouvelle rando, sauvegarde de ta liste, et ce tutoriel.']
+        ],
+        note: 'Un appui simple ne fait rien : c\u2019est le glissement qui range. ' +
+              'Sur ordinateur, glisse en maintenant le bouton de la souris.'
+    },
+    food: {
+        cle: 'tutoFoodVuV1',
+        titre: '🍲 Planifier ses vivres',
+        intro: 'Ce qui compte, c\u2019est le poids des calories.',
+        etapes: [
+            ['📅', '', 'Règle ta sortie',
+             'La <b>durée en jours</b> et ton <b>besoin quotidien</b> : 2 500 à 3 500 kcal, ' +
+             'plus en terrain alpin.'],
+            ['⚖️', 'v', 'La densité fait le poids',
+             'En <b>kcal pour 100 g</b>. Au-dessus de <b>440</b>, ton sac est léger. ' +
+             'Sous <b>320</b>, tu portes surtout de l\u2019eau.'],
+            ['+', 'v', 'Pioche dans la bibliothèque',
+             'Tape les premières lettres — <i>pâtes</i>, <i>huile</i>. Poids et calories ' +
+             'sont pré-remplis.'],
+            ['→', 'v', 'Ajuste les quantités',
+             'Glisse vers la droite pour ajouter une unité, vers la gauche pour en retirer une. ' +
+             'Appui long pour modifier ou supprimer.'],
+            ['🛒', '', 'La liste de courses',
+             'Dans le menu <b>⋯</b> : les quantités totales à acheter, prêtes à copier.'],
+            ['⚠️', 'am', 'Au-delà de 7 jours',
+             'Personne ne porte trois semaines de vivres. L\u2019application te renverra vers ' +
+             'un découpage entre deux ravitaillements.']
+        ],
+        note: 'Les valeurs de la bibliothèque sont des moyennes : corrige-les par appui long ' +
+              'd\u2019après tes emballages.'
+    }
+};
 
-function ouvrirTuto() {
+const voileTuto = document.getElementById('tuto');
+let tutoCourant = 'sac';
+
+function construireTuto(cle) {
+    const t = TUTOS[cle];
+    tutoCourant = cle;
+    document.getElementById('tuto-titre').textContent = t.titre;
+    document.getElementById('tuto-intro').textContent = t.intro;
+
+    const corps = document.getElementById('tuto-corps');
+    corps.innerHTML = t.etapes.map(e =>
+        '<div class="etape"><div class="sym ' + e[1] + '">' + e[0] + '</div>' +
+        '<div><strong>' + e[2] + '</strong><p>' + e[3] + '</p></div></div>'
+    ).join('') + '<div class="tuto-note">' + t.note + '</div>';
+}
+
+function ouvrirTuto(cle) {
+    construireTuto(cle || (vue === 'food' ? 'food' : 'sac'));
     voileTuto.classList.add('ouvert');
+
     const carte = voileTuto.querySelector('.tuto-carte');
     const corps = voileTuto.querySelector('.tuto-corps');
     corps.scrollTop = 0;
@@ -1713,18 +1766,19 @@ function ouvrirTuto() {
        scrollHeight force le calcul de la mise en page : pas besoin d'attendre
        une frame, qui ne viendrait pas si l'application est en arrière-plan. */
     carte.classList.toggle('defilable', corps.scrollHeight > corps.clientHeight + 1);
+    majEmojis();
 }
 
 function fermerTuto() {
     voileTuto.classList.remove('ouvert');
-    try { localStorage.setItem(CLE_TUTO, '1'); } catch (e) {}
+    try { localStorage.setItem(TUTOS[tutoCourant].cle, '1'); } catch (e) {}
 }
 
 document.getElementById('tuto-ok').onclick = fermerTuto;
 voileTuto.addEventListener('click', e => { if (e.target === voileTuto) fermerTuto(); });
 
-function tutoDejaVu() {
-    try { return localStorage.getItem(CLE_TUTO) === '1'; } catch (e) { return true; }
+function tutoDejaVu(cle) {
+    try { return localStorage.getItem(TUTOS[cle].cle) === '1'; } catch (e) { return true; }
 }
 
 /* ==========================================================================
@@ -1749,7 +1803,7 @@ majBoutonVue();
 afficher();
 majEmojis();
 
-if (!tutoDejaVu()) ouvrirTuto();
+if (!tutoDejaVu('sac')) ouvrirTuto('sac');
 </script>
 
 <script>
