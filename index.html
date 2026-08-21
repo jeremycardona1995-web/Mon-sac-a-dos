@@ -126,12 +126,27 @@
             background: var(--surface); border: 1px solid var(--bordure);
             border-radius: 16px; overflow: hidden;
         }
+        .ligne-hote { position: relative; overflow: hidden; }
         .ligne {
             display: flex; align-items: center; gap: 12px;
             padding: 13px 14px; min-height: 52px;
-            border-bottom: 1px solid var(--bordure-fine); cursor: pointer;
+            border-bottom: 1px solid var(--bordure-fine);
+            background: var(--surface); position: relative; z-index: 1;
+            touch-action: pan-y; cursor: grab;
         }
-        .ligne:last-child { border-bottom: none; }
+
+        /* Fond révélé pendant le glissement */
+        .fond-glisse {
+            position: absolute; inset: 0; display: flex; align-items: center;
+            padding: 0 20px; font-size: 11.5px; font-weight: 800;
+            letter-spacing: 0.6px; opacity: 0; pointer-events: none;
+        }
+        .fond-glisse.droite { justify-content: flex-start; }
+        .fond-glisse.gauche { justify-content: flex-end; }
+        .fond-glisse.c-vert   { background: rgba(34, 197, 94, 0.18);  color: var(--vert); }
+        .fond-glisse.c-ambre  { background: rgba(245, 158, 11, 0.18); color: var(--ambre); }
+        .fond-glisse.c-neutre { background: rgba(139, 147, 161, 0.15); color: var(--attenue); }
+        .ligne-hote:last-child .ligne { border-bottom: none; }
         .ligne:active { background: var(--surface-2); }
 
         .puce {
@@ -212,6 +227,39 @@
         }
         .separateur { height: 1px; background: var(--bordure); margin: 24px 0 4px; }
 
+        /* ---------- Tutoriel ---------- */
+        .voile-tuto {
+            display: none; position: fixed; inset: 0; z-index: 200;
+            background: rgba(0, 0, 0, 0.74);
+            -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px);
+            align-items: center; justify-content: center; padding: 18px;
+        }
+        .voile-tuto.ouvert { display: flex; }
+        .tuto-carte {
+            background: var(--surface); border: 1px solid var(--bordure);
+            border-radius: 24px; width: 100%; max-width: 420px;
+            max-height: 86vh; overflow-y: auto;
+            padding: 24px 20px calc(20px + env(safe-area-inset-bottom));
+        }
+        .tuto-carte h2 { font-size: 21px; font-weight: 800; text-align: center; margin: 0 0 5px; }
+        .tuto-intro { text-align: center; font-size: 13px; color: var(--attenue); margin: 0 0 22px; }
+        .etape { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 17px; }
+        .etape .sym {
+            width: 44px; height: 44px; border-radius: 13px; flex: none;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; font-weight: 700;
+            background: var(--surface-2); border: 1px solid var(--bordure);
+        }
+        .etape .sym.v { background: rgba(34,197,94,.16); border-color: rgba(34,197,94,.45); color: var(--vert); }
+        .etape .sym.am { background: rgba(245,158,11,.16); border-color: rgba(245,158,11,.45); color: var(--ambre); }
+        .etape strong { display: block; font-size: 15px; margin-bottom: 3px; }
+        .etape p { margin: 0; font-size: 13px; color: var(--attenue); line-height: 1.5; }
+        .tuto-note {
+            font-size: 12.5px; color: var(--attenue); line-height: 1.55;
+            background: var(--surface-2); border: 1px solid var(--bordure);
+            border-radius: 12px; padding: 12px 14px; margin: 4px 0 18px;
+        }
+
         .toast {
             position: fixed; left: 50%; transform: translateX(-50%);
             bottom: calc(96px + env(safe-area-inset-bottom)); z-index: 200;
@@ -270,6 +318,70 @@
         <div class="poignee"></div>
         <div class="feuille-titre" id="feuille-titre"></div>
         <div id="feuille-corps"></div>
+    </div>
+</div>
+
+<div class="voile-tuto" id="tuto">
+    <div class="tuto-carte">
+        <h2>🎒 Comment ça marche</h2>
+        <p class="tuto-intro">Trois gestes, et c'est tout.</p>
+
+        <div class="etape">
+            <div class="sym v">→</div>
+            <div>
+                <strong>Glisse vers la droite</strong>
+                <p>L'équipement avance d'un cran :<br>
+                   <b>Réserve</b> → <b>À prendre</b> → <b>Rangé</b>.</p>
+            </div>
+        </div>
+
+        <div class="etape">
+            <div class="sym am">←</div>
+            <div>
+                <strong>Glisse vers la gauche</strong>
+                <p>Il recule d'un cran :<br>
+                   <b>Rangé</b> → <b>À prendre</b> → <b>Réserve</b>.</p>
+            </div>
+        </div>
+
+        <div class="etape">
+            <div class="sym">🔁</div>
+            <div>
+                <strong>Le geste dépend d'où il est</strong>
+                <p>Pendant le glissement, une couleur apparaît sous la ligne : elle annonce la section d'arrivée. En bout de chaîne, la ligne résiste et rien ne bouge.</p>
+            </div>
+        </div>
+
+        <div class="etape">
+            <div class="sym">👆</div>
+            <div>
+                <strong>Appui long</strong>
+                <p>Ouvre le menu de l'objet : renommer, <b>indiquer le poids</b> ou supprimer. Fonctionne aussi sur le titre d'un groupe.</p>
+            </div>
+        </div>
+
+        <div class="etape">
+            <div class="sym v">+</div>
+            <div>
+                <strong>Le bouton vert</strong>
+                <p>Ajoute un équipement ou crée un nouveau groupe.</p>
+            </div>
+        </div>
+
+        <div class="etape">
+            <div class="sym">⋯</div>
+            <div>
+                <strong>Le menu en haut</strong>
+                <p>Nouvelle rando, sauvegarde de ta liste, et ce tutoriel.</p>
+            </div>
+        </div>
+
+        <div class="tuto-note">
+            Un appui simple ne fait rien : c'est le glissement qui range.
+            Sur ordinateur, glisse en maintenant le bouton de la souris.
+        </div>
+
+        <button class="act principal" id="tuto-ok">C'est parti !</button>
     </div>
 </div>
 
@@ -500,9 +612,17 @@ function afficher() {
                 ligne.appendChild(p);
             }
 
-            ligne.onclick = () => basculer(objet);
+            /* L'appui simple ne fait rien : c'est le glissement qui range. */
             appuiLong(ligne, () => menuObjet(objet, groupe));
-            carte.appendChild(ligne);
+
+            const hote = document.createElement('div');
+            hote.className = 'ligne-hote';
+            const fond = document.createElement('div');
+            fond.className = 'fond-glisse';
+            hote.appendChild(fond);
+            hote.appendChild(ligne);
+            rendreGlissable(ligne, fond, objet);
+            carte.appendChild(hote);
         });
 
         bloc.appendChild(carte);
@@ -556,13 +676,102 @@ function majHero(aPrendre, ranges, poidsSac, poidsRestant) {
    Actions sur les objets
    ========================================================================== */
 
-function basculer(objet) {
-    const etat = etatDe(objet);
-    if (etat === 'reserve') { etats[objet] = 'a-prendre'; vibrer(10); }
-    else if (etat === 'a-prendre') { etats[objet] = 'range'; vibrer([10, 40, 14]); }
-    else { delete etats[objet]; vibrer(8); }
+function definirEtat(objet, etat) {
+    if (etat === 'reserve') delete etats[objet];
+    else etats[objet] = etat;
     sauver();
     afficher();
+}
+
+/* Glissement latéral. L'objet avance ou recule d'un cran selon la section où
+   il se trouve : Réserve → À prendre → Rangé vers la droite, et l'inverse vers
+   la gauche. Au bout de la chaîne, la ligne résiste et ne bouge pas.
+   Fonctionne au doigt comme à la souris. */
+const SEUIL_GLISSEMENT = 68;
+const ORDRE_ETATS = ['reserve', 'a-prendre', 'range'];
+const LIBELLE_ETAT = { reserve: 'RÉSERVE', 'a-prendre': 'À PRENDRE', range: '✓  RANGÉ' };
+const COULEUR_ETAT = { reserve: 'c-neutre', 'a-prendre': 'c-ambre', range: 'c-vert' };
+
+/* Renvoie la section voisine, ou null s'il n'y en a pas dans cette direction. */
+function etatVoisin(etat, versLaDroite) {
+    const i = ORDRE_ETATS.indexOf(etat) + (versLaDroite ? 1 : -1);
+    return (i < 0 || i >= ORDRE_ETATS.length) ? null : ORDRE_ETATS[i];
+}
+
+function rendreGlissable(ligne, fond, objet) {
+    let departX = 0, departY = 0, ecart = 0;
+    let actif = false, horizontal = false;
+
+    function commencer(x, y) {
+        departX = x; departY = y; ecart = 0;
+        actif = true; horizontal = false;
+        ligne.style.transition = 'none';
+    }
+
+    function deplacer(x, y) {
+        if (!actif) return;
+        const ex = x - departX, ey = y - departY;
+
+        if (!horizontal) {
+            if (Math.abs(ex) < 9 && Math.abs(ey) < 9) return;
+            /* Geste plutôt vertical : on rend la main au défilement. */
+            if (Math.abs(ex) <= Math.abs(ey)) { actif = false; return; }
+            horizontal = true;
+        }
+
+        ecart = ex;
+        const versLaDroite = ecart > 0;
+        const cible = etatVoisin(etatDe(objet), versLaDroite);
+
+        /* Sans destination possible, la ligne résiste au lieu de suivre le doigt. */
+        ligne.style.transform = 'translateX(' + (ecart * (cible ? 0.85 : 0.22)) + 'px)';
+
+        if (!cible) { fond.style.opacity = 0; return; }
+        fond.className = 'fond-glisse ' + (versLaDroite ? 'droite' : 'gauche') + ' ' + COULEUR_ETAT[cible];
+        fond.textContent = LIBELLE_ETAT[cible];
+        fond.style.opacity = Math.min(1, Math.abs(ecart) / SEUIL_GLISSEMENT);
+    }
+
+    function terminer() {
+        if (!actif) return;
+        actif = false;
+        ligne.style.transition = 'transform .2s ease';
+        ligne.style.transform = '';
+
+        if (horizontal && Math.abs(ecart) >= SEUIL_GLISSEMENT) {
+            const cible = etatVoisin(etatDe(objet), ecart > 0);
+            if (cible) {
+                vibrer(cible === 'range' ? [10, 40, 14] : 12);
+                definirEtat(objet, cible);
+                return;
+            }
+        }
+        fond.style.opacity = 0;
+    }
+
+    ligne.addEventListener('touchstart', e => {
+        commencer(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+    ligne.addEventListener('touchmove', e => {
+        deplacer(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+    ligne.addEventListener('touchend', terminer);
+    ligne.addEventListener('touchcancel', terminer);
+
+    ligne.addEventListener('mousedown', e => {
+        if (e.button !== 0) return;
+        e.preventDefault();
+        commencer(e.clientX, e.clientY);
+
+        const surDeplacement = ev => deplacer(ev.clientX, ev.clientY);
+        const surRelachement = () => {
+            document.removeEventListener('mousemove', surDeplacement);
+            document.removeEventListener('mouseup', surRelachement);
+            terminer();
+        };
+        document.addEventListener('mousemove', surDeplacement);
+        document.addEventListener('mouseup', surRelachement);
+    });
 }
 
 function menuObjet(objet, groupe) {
@@ -701,6 +910,7 @@ document.getElementById('btn-menu').onclick = () => {
             toast('Prêt pour une nouvelle sortie');
         });
 
+        bouton(corps, '❓ Revoir le tutoriel', '', () => { fermerFeuille(); ouvrirTuto(); });
         bouton(corps, '💾 Exporter ma liste', '', () => { fermerFeuille(); exporter(); });
         bouton(corps, '📂 Importer une liste', '', () => {
             fermerFeuille();
@@ -776,6 +986,27 @@ document.getElementById('fichier-import').onchange = function () {
 };
 
 /* ==========================================================================
+   Tutoriel — affiché une fois, puis rappelable depuis le menu
+   ========================================================================== */
+
+const CLE_TUTO = 'tutoVuTrekV1';
+const voileTuto = document.getElementById('tuto');
+
+function ouvrirTuto() { voileTuto.classList.add('ouvert'); }
+
+function fermerTuto() {
+    voileTuto.classList.remove('ouvert');
+    try { localStorage.setItem(CLE_TUTO, '1'); } catch (e) {}
+}
+
+document.getElementById('tuto-ok').onclick = fermerTuto;
+voileTuto.addEventListener('click', e => { if (e.target === voileTuto) fermerTuto(); });
+
+function tutoDejaVu() {
+    try { return localStorage.getItem(CLE_TUTO) === '1'; } catch (e) { return true; }
+}
+
+/* ==========================================================================
    Recherche et filtres
    ========================================================================== */
 
@@ -794,6 +1025,8 @@ document.getElementById('segments').addEventListener('click', e => {
 });
 
 afficher();
+
+if (!tutoDejaVu()) ouvrirTuto();
 </script>
 
 <script>
