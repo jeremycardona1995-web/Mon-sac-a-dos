@@ -174,8 +174,6 @@
 
         /* ---------- Bouton flottant ---------- */
         .fab {
-            position: fixed; right: 20px; z-index: 40;
-            bottom: calc(24px + env(safe-area-inset-bottom));
             width: 58px; height: 58px; border-radius: 50%; border: none;
             background: linear-gradient(145deg, var(--vert), var(--vert-fonce));
             color: #062b13; font-size: 32px; font-weight: 300; cursor: pointer;
@@ -262,8 +260,8 @@
         .tuto-pied .act { margin-bottom: 0; }
 
         .tuto-carte h2 { font-size: 21px; font-weight: 800; text-align: center; margin: 0 0 5px; }
-        .tuto-intro { text-align: center; font-size: 13px; color: var(--attenue); margin: 0 0 16px; }
-        .etape { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; }
+        .tuto-intro { text-align: center; font-size: 13px; color: var(--attenue); margin: 0 0 11px; }
+        .etape { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 12px; }
         .etape .sym {
             width: 44px; height: 44px; border-radius: 13px; flex: none;
             display: flex; align-items: center; justify-content: center;
@@ -303,6 +301,121 @@
             max-width: 88vw; text-align: center;
         }
         .toast.visible { opacity: 1; }
+
+        /* ---------- Émojis Twemoji ---------- */
+        .emj {
+            height: 1.15em; width: 1.15em; vertical-align: -0.2em;
+            margin: 0 0.04em; display: inline-block;
+        }
+
+        /* ---------- Vue Nourriture ---------- */
+        .hero-food { display: block; }
+        .food-total { font-size: 30px; font-weight: 800; letter-spacing: -1px; line-height: 1; }
+        .food-total small { font-size: 15px; color: var(--attenue); font-weight: 600; margin-left: 5px; }
+        .food-auto { font-size: 13.5px; font-weight: 700; color: var(--vert); margin-top: 7px; }
+        .food-auto.court { color: var(--ambre); }
+        .food-det { font-size: 12.5px; color: var(--attenue); margin-top: 9px; line-height: 1.5; }
+
+        .densite { margin-top: 13px; }
+        .densite .echelle {
+            height: 8px; border-radius: 99px; position: relative;
+            background: linear-gradient(90deg, #ef4444 0%, #f59e0b 34%, #22c55e 62%, #22c55e 100%);
+        }
+        .densite .curseur {
+            position: absolute; top: -4px; width: 4px; height: 16px; border-radius: 2px;
+            background: #fff; box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.45);
+            transition: left .35s ease;
+        }
+        .densite .legende {
+            display: flex; justify-content: space-between; font-size: 9.5px;
+            color: var(--attenue); margin-top: 6px; letter-spacing: 0.3px;
+        }
+
+        .reglages { display: flex; gap: 10px; margin: 14px 0 4px; }
+        .reglage {
+            flex: 1; background: var(--surface); border: 1px solid var(--bordure);
+            border-radius: 14px; padding: 10px 12px;
+        }
+        .reglage > span {
+            display: block; font-size: 10px; color: var(--attenue); letter-spacing: 0.6px;
+            text-transform: uppercase; font-weight: 700; margin-bottom: 6px;
+        }
+        .reglage .valeur { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+        .reglage b { font-size: 17px; font-weight: 800; }
+        .reglage i { font-style: normal; font-size: 11px; color: var(--attenue); display: block; margin-top: 2px; }
+        .reglage .pm { display: flex; gap: 5px; flex: none; }
+        .reglage .pm button {
+            width: 30px; height: 30px; border-radius: 9px; background: var(--surface-2);
+            border: 1px solid var(--bordure); color: var(--texte); font-size: 16px;
+            cursor: pointer; font-family: inherit; padding: 0;
+        }
+
+        .avertissement {
+            background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.4);
+            border-radius: 12px; padding: 11px 13px; font-size: 12px;
+            color: var(--ambre); line-height: 1.5; margin-top: 14px;
+        }
+
+        .ligne-food { cursor: pointer; }
+        .qte {
+            font-size: 12px; font-weight: 800; color: var(--attenue);
+            min-width: 26px; flex: none; font-variant-numeric: tabular-nums;
+        }
+        .nom-food { flex: 1; min-width: 0; }
+        .nom-food b { display: block; font-size: 14.5px; font-weight: 500; }
+        .nom-food i { display: block; font-style: normal; font-size: 11px; color: var(--attenue); margin-top: 2px; }
+        .bilan-food { text-align: right; flex: none; }
+        .bilan-food b { display: block; font-size: 12.5px; font-weight: 700; font-variant-numeric: tabular-nums; }
+        .bilan-food i { display: block; font-style: normal; font-size: 10px; font-weight: 600; margin-top: 2px; }
+        .bilan-food i.d-haute { color: var(--vert); }
+        .bilan-food i.d-moyenne { color: var(--ambre); }
+        .bilan-food i.d-basse { color: var(--rouge); }
+
+        /* ---------- Boutons flottants empilés ---------- */
+        .fabs {
+            position: fixed; right: 20px; z-index: 40;
+            bottom: calc(24px + env(safe-area-inset-bottom));
+            display: flex; flex-direction: column; gap: 12px; align-items: center;
+        }
+        .fab-vue {
+            width: 50px; height: 50px; border-radius: 50%; border: 1px solid var(--bordure);
+            background: var(--surface-2); font-size: 21px; cursor: pointer; padding: 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .fab-vue .emj { height: 24px; width: 24px; vertical-align: 0; margin: 0; }
+
+        /* ---------- Sélecteur d'aliments et d'émojis ---------- */
+        .resultats { max-height: 46vh; overflow-y: auto; margin: 0 -18px; padding: 0 18px; }
+        .prop {
+            display: flex; align-items: center; gap: 11px; width: 100%;
+            padding: 11px 13px; margin-bottom: 6px; text-align: left;
+            background: var(--surface-2); border: 1px solid var(--bordure);
+            border-radius: 12px; color: var(--texte); font-family: inherit; cursor: pointer;
+        }
+        .prop .lib { flex: 1; font-size: 14.5px; font-weight: 500; min-width: 0; }
+        .prop .dens { font-size: 11px; font-weight: 700; color: var(--attenue); flex: none; }
+
+        .grille-emoji {
+            display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px;
+            margin-bottom: 14px;
+        }
+        .grille-emoji button {
+            aspect-ratio: 1; border-radius: 10px; background: var(--surface-2);
+            border: 1px solid var(--bordure); cursor: pointer; padding: 0;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .grille-emoji button .emj { height: 22px; width: 22px; vertical-align: 0; margin: 0; }
+        .titre-theme {
+            font-size: 10.5px; font-weight: 700; color: var(--attenue);
+            letter-spacing: 0.8px; text-transform: uppercase; margin: 14px 0 8px 2px;
+        }
+
+        .courses { font-size: 13.5px; line-height: 1.7; }
+        .courses h4 { font-size: 12px; color: var(--attenue); letter-spacing: .6px;
+                      text-transform: uppercase; margin: 14px 0 6px; }
+        .courses div { display: flex; justify-content: space-between; gap: 10px; }
+        .courses div span:last-child { color: var(--attenue); flex: none; font-variant-numeric: tabular-nums; }
     </style>
 </head>
 <body>
@@ -314,7 +427,7 @@
             <button class="ico-btn" id="btn-menu" aria-label="Menu">⋯</button>
         </div>
 
-        <div class="hero">
+        <div class="hero" id="hero-sac">
             <div class="anneau">
                 <svg width="80" height="80" viewBox="0 0 80 80">
                     <circle cx="40" cy="40" r="34" fill="none" stroke="#1e2839" stroke-width="8"></circle>
@@ -330,7 +443,7 @@
             </div>
         </div>
 
-        <div class="collant">
+        <div class="collant" id="barre-sac">
             <input type="search" class="recherche" id="recherche" placeholder="Rechercher un équipement…" autocomplete="off">
             <div class="segments" id="segments">
                 <button data-f="tout" class="actif">Tout</button>
@@ -339,12 +452,16 @@
                 <button data-f="reserve">Réserve</button>
             </div>
         </div>
+        <div id="entete-food" hidden></div>
     </header>
 
     <main id="liste"></main>
 </div>
 
-<button class="fab" id="fab" aria-label="Ajouter">+</button>
+<div class="fabs">
+    <button class="fab-vue" id="btn-vue" aria-label="Changer de vue"></button>
+    <button class="fab" id="fab" aria-label="Ajouter">+</button>
+</div>
 
 <div class="voile" id="voile">
     <div class="feuille" id="feuille">
@@ -400,8 +517,10 @@
         <div class="etape">
             <div class="sym v">+</div>
             <div>
-                <strong>Le bouton vert</strong>
-                <p>Ajoute un équipement ou crée un nouveau groupe.</p>
+                <strong>Les boutons en bas</strong>
+                <p>Le <b>+</b> vert ajoute un équipement ou un aliment.
+                   Le bouton au-dessus bascule entre le <b>sac</b> 🎒 et
+                   la <b>nourriture</b> 🍲.</p>
             </div>
         </div>
 
@@ -448,6 +567,9 @@ const categoriesParDefaut = {
 let categories = lire('structTrekV3', categoriesParDefaut);
 let etats      = lire('stateTrekV3', {});
 let poids      = lire('poidsTrekV3', {});
+let vivres     = lire('vivresTrekV1', {});
+let reglages   = lire('reglagesTrekV1', { jours: 3, kcalJour: 3000 });
+let vue        = 'sac';
 
 /* Les versions precedentes nommaient les etats « missing » et « present ».
    On les convertit une fois pour toutes, et on ecarte toute valeur inconnue,
@@ -477,6 +599,8 @@ function sauver() {
     localStorage.setItem('structTrekV3', JSON.stringify(categories));
     localStorage.setItem('stateTrekV3', JSON.stringify(etats));
     localStorage.setItem('poidsTrekV3', JSON.stringify(poids));
+    localStorage.setItem('vivresTrekV1', JSON.stringify(vivres));
+    localStorage.setItem('reglagesTrekV1', JSON.stringify(reglages));
 }
 
 /* ==========================================================================
@@ -556,6 +680,7 @@ function ouvrirFeuille(titre, construire) {
     corps.innerHTML = '';
     construire(corps);
     voile.classList.add('ouvert');
+    majEmojis();
 }
 
 function fermerFeuille() { voile.classList.remove('ouvert'); }
@@ -589,6 +714,8 @@ function visible(objet, groupe) {
 }
 
 function afficher() {
+    if (vue === 'food') { afficherVivres(); return; }
+
     const liste = document.getElementById('liste');
     liste.innerHTML = '';
 
@@ -662,7 +789,18 @@ function afficher() {
             fond.className = 'fond-glisse';
             hote.appendChild(fond);
             hote.appendChild(ligne);
-            rendreGlissable(ligne, fond, objet);
+            rendreGlissable(ligne, fond,
+                droite => {
+                    const c = etatVoisin(etatDe(objet), droite);
+                    return c ? { texte: LIBELLE_ETAT[c], couleur: COULEUR_ETAT[c] } : null;
+                },
+                droite => {
+                    const c = etatVoisin(etatDe(objet), droite);
+                    if (!c) return false;
+                    vibrer(c === 'range' ? [10, 40, 14] : 12);
+                    definirEtat(objet, c);
+                    return true;
+                });
             carte.appendChild(hote);
         });
 
@@ -680,6 +818,7 @@ function afficher() {
     }
 
     majHero(aPrendre, ranges, poidsSac, poidsRestant);
+    majEmojis();
 }
 
 function majHero(aPrendre, ranges, poidsSac, poidsRestant) {
@@ -739,7 +878,7 @@ function etatVoisin(etat, versLaDroite) {
     return (i < 0 || i >= ORDRE_ETATS.length) ? null : ORDRE_ETATS[i];
 }
 
-function rendreGlissable(ligne, fond, objet) {
+function rendreGlissable(ligne, fond, apercu, valider) {
     let departX = 0, departY = 0, ecart = 0;
     let actif = false, horizontal = false;
 
@@ -762,14 +901,14 @@ function rendreGlissable(ligne, fond, objet) {
 
         ecart = ex;
         const versLaDroite = ecart > 0;
-        const cible = etatVoisin(etatDe(objet), versLaDroite);
+        const vu = apercu(versLaDroite);
 
         /* Sans destination possible, la ligne résiste au lieu de suivre le doigt. */
-        ligne.style.transform = 'translateX(' + (ecart * (cible ? 0.85 : 0.22)) + 'px)';
+        ligne.style.transform = 'translateX(' + (ecart * (vu ? 0.85 : 0.22)) + 'px)';
 
-        if (!cible) { fond.style.opacity = 0; return; }
-        fond.className = 'fond-glisse ' + (versLaDroite ? 'droite' : 'gauche') + ' ' + COULEUR_ETAT[cible];
-        fond.textContent = LIBELLE_ETAT[cible];
+        if (!vu) { fond.style.opacity = 0; return; }
+        fond.className = 'fond-glisse ' + (versLaDroite ? 'droite' : 'gauche') + ' ' + vu.couleur;
+        fond.textContent = vu.texte;
         fond.style.opacity = Math.min(1, Math.abs(ecart) / SEUIL_GLISSEMENT);
     }
 
@@ -779,14 +918,7 @@ function rendreGlissable(ligne, fond, objet) {
         ligne.style.transition = 'transform .2s ease';
         ligne.style.transform = '';
 
-        if (horizontal && Math.abs(ecart) >= SEUIL_GLISSEMENT) {
-            const cible = etatVoisin(etatDe(objet), ecart > 0);
-            if (cible) {
-                vibrer(cible === 'range' ? [10, 40, 14] : 12);
-                definirEtat(objet, cible);
-                return;
-            }
-        }
+        if (horizontal && Math.abs(ecart) >= SEUIL_GLISSEMENT && valider(ecart > 0)) return;
         fond.style.opacity = 0;
     }
 
@@ -882,7 +1014,7 @@ function menuGroupe(groupe) {
    Ajout de matériel
    ========================================================================== */
 
-document.getElementById('fab').onclick = () => {
+function ajouterMateriel() {
     ouvrirFeuille('Ajouter du matériel', corps => {
         corps.innerHTML =
             '<label for="f-objet">Nouvel équipement</label>' +
@@ -933,6 +1065,10 @@ document.getElementById('fab').onclick = () => {
 
         bouton(corps, 'Annuler', 'annuler', fermerFeuille);
     });
+}
+
+document.getElementById('fab').onclick = () => {
+    if (vue === 'food') ajouterAliment(); else ajouterMateriel();
 };
 
 /* ==========================================================================
@@ -951,6 +1087,7 @@ document.getElementById('btn-menu').onclick = () => {
             toast('Prêt pour une nouvelle sortie');
         });
 
+        bouton(corps, '🛒 Liste de courses', '', () => { fermerFeuille(); ouvrirCourses(); });
         bouton(corps, '❓ Revoir le tutoriel', '', () => { fermerFeuille(); ouvrirTuto(); });
         bouton(corps, '💾 Exporter ma liste', '', () => { fermerFeuille(); exporter(); });
         bouton(corps, '📂 Importer une liste', '', () => {
@@ -1027,6 +1164,540 @@ document.getElementById('fichier-import').onchange = function () {
 };
 
 /* ==========================================================================
+   Émojis — graphismes Twemoji sous licence CC-BY 4.0
+   https://github.com/jdecked/twemoji
+   ========================================================================== */
+
+const EMOJIS = {"🍝":"1f35d","🍝️":"1f35d","🍜":"1f35c","🍜️":"1f35c","🍚":"1f35a","🍚️":"1f35a","🥔":"1f954","🥔️":"1f954","🌽":"1f33d","🌽️":"1f33d","🍞":"1f35e","🍞️":"1f35e","🥖":"1f956","🥖️":"1f956","🥐":"1f950","🥐️":"1f950","🥯":"1f96f","🥯️":"1f96f","🥨":"1f968","🥨️":"1f968","🍪":"1f36a","🍪️":"1f36a","🧇":"1f9c7","🧇️":"1f9c7","🥞":"1f95e","🥞️":"1f95e","🧀":"1f9c0","🧀️":"1f9c0","🥩":"1f969","🥩️":"1f969","🍖":"1f356","🍖️":"1f356","🍗":"1f357","🍗️":"1f357","🥓":"1f953","🥓️":"1f953","🐟":"1f41f","🐟️":"1f41f","🥫":"1f96b","🥫️":"1f96b","🥚":"1f95a","🥚️":"1f95a","🍳":"1f373","🍳️":"1f373","🫘":"1fad8","🫘️":"1fad8","🌰":"1f330","🌰️":"1f330","🥜":"1f95c","🥜️":"1f95c","🍫":"1f36b","🍫️":"1f36b","🍬":"1f36c","🍬️":"1f36c","🍯":"1f36f","🍯️":"1f36f","🍩":"1f369","🍩️":"1f369","🍰":"1f370","🍰️":"1f370","🍿":"1f37f","🍿️":"1f37f","🧈":"1f9c8","🧈️":"1f9c8","🍎":"1f34e","🍎️":"1f34e","🍌":"1f34c","🍌️":"1f34c","🍇":"1f347","🍇️":"1f347","🍊":"1f34a","🍊️":"1f34a","🍋":"1f34b","🍋️":"1f34b","🍓":"1f353","🍓️":"1f353","🍑":"1f351","🍑️":"1f351","🥭":"1f96d","🥭️":"1f96d","🍍":"1f34d","🍍️":"1f34d","🥥":"1f965","🥥️":"1f965","🫒":"1fad2","🫒️":"1fad2","🥕":"1f955","🥕️":"1f955","🧅":"1f9c5","🧅️":"1f9c5","🧄":"1f9c4","🧄️":"1f9c4","🥗":"1f957","🥗️":"1f957","🌶":"1f336","🌶️":"1f336","🍄":"1f344","🍄️":"1f344","💧":"1f4a7","💧️":"1f4a7","🥛":"1f95b","🥛️":"1f95b","☕":"2615","☕️":"2615","🍵":"1f375","🍵️":"1f375","🧃":"1f9c3","🧃️":"1f9c3","🥤":"1f964","🥤️":"1f964","🍺":"1f37a","🍺️":"1f37a","🍷":"1f377","🍷️":"1f377","🧊":"1f9ca","🧊️":"1f9ca","🧂":"1f9c2","🧂️":"1f9c2","🫗":"1fad7","🫗️":"1fad7","🥄":"1f944","🥄️":"1f944","🎒":"1f392","🎒️":"1f392","🏕":"1f3d5","🏕️":"1f3d5","⛺":"26fa","⛺️":"26fa","🛏":"1f6cf","🛏️":"1f6cf","🛌":"1f6cc","🛌️":"1f6cc","🪵":"1fab5","🪵️":"1fab5","🔥":"1f525","🔥️":"1f525","🍲":"1f372","🍲️":"1f372","🍴":"1f374","🍴️":"1f374","🥢":"1f962","🥢️":"1f962","🥣":"1f963","🥣️":"1f963","🫙":"1fad9","🫙️":"1fad9","🧽":"1f9fd","🧽️":"1f9fd","🧴":"1f9f4","🧴️":"1f9f4","🧥":"1f9e5","🧥️":"1f9e5","👕":"1f455","👕️":"1f455","👖":"1f456","👖️":"1f456","🩳":"1fa73","🩳️":"1fa73","🧦":"1f9e6","🧦️":"1f9e6","🥾":"1f97e","🥾️":"1f97e","👟":"1f45f","👟️":"1f45f","🧢":"1f9e2","🧢️":"1f9e2","👒":"1f452","👒️":"1f452","🧣":"1f9e3","🧣️":"1f9e3","🧤":"1f9e4","🧤️":"1f9e4","🕶":"1f576","🕶️":"1f576","☀":"2600","☀️":"2600","☔":"2614","☔️":"2614","🌂":"1f302","🌂️":"1f302","❄":"2744","❄️":"2744","🌧":"1f327","🌧️":"1f327","⛅":"26c5","⛅️":"26c5","🔦":"1f526","🔦️":"1f526","🕯":"1f56f","🕯️":"1f56f","🔋":"1f50b","🔋️":"1f50b","🔌":"1f50c","🔌️":"1f50c","📱":"1f4f1","📱️":"1f4f1","⌚":"231a","⌚️":"231a","🧭":"1f9ed","🧭️":"1f9ed","🗺":"1f5fa","🗺️":"1f5fa","📡":"1f4e1","📡️":"1f4e1","📖":"1f4d6","📖️":"1f4d6","📝":"1f4dd","📝️":"1f4dd","📷":"1f4f7","📷️":"1f4f7","🔭":"1f52d","🔭️":"1f52d","🔪":"1f52a","🔪️":"1f52a","🪓":"1fa93","🪓️":"1fa93","🪢":"1faa2","🪢️":"1faa2","🧗":"1f9d7","🧗️":"1f9d7","⛏":"26cf","⛏️":"26cf","🥽":"1f97d","🥽️":"1f97d","🧯":"1f9ef","🧯️":"1f9ef","🧰":"1f9f0","🧰️":"1f9f0","🔧":"1f527","🔧️":"1f527","🪡":"1faa1","🪡️":"1faa1","🧵":"1f9f5","🧵️":"1f9f5","🔑":"1f511","🔑️":"1f511","🪪":"1faaa","🪪️":"1faaa","💳":"1f4b3","💳️":"1f4b3","🧼":"1f9fc","🧼️":"1f9fc","🧻":"1f9fb","🧻️":"1f9fb","🪥":"1faa5","🪥️":"1faa5","💊":"1f48a","💊️":"1f48a","🩹":"1fa79","🩹️":"1fa79","🩺":"1fa7a","🩺️":"1fa7a","🗑":"1f5d1","🗑️":"1f5d1","🧺":"1f9fa","🧺️":"1f9fa","♻":"267b","♻️":"267b","🌟":"1f31f","🌟️":"1f31f","🏺":"1f3fa","🏺️":"1f3fa","🌾":"1f33e","🌾️":"1f33e","📢":"1f4e2","📢️":"1f4e2","🚿":"1f6bf","🚿️":"1f6bf","🦷":"1f9b7","🦷️":"1f9b7","🍽":"1f37d","🍽️":"1f37d","⚙":"2699","⚙️":"2699","✏":"270f","✏️":"270f","⚖":"2696","⚖️":"2696","↩":"21a9","↩️":"21a9","❓":"2753","❓️":"2753","💾":"1f4be","💾️":"1f4be","📂":"1f4c2","📂️":"1f4c2","⚠":"26a0","⚠️":"26a0","🔁":"1f501","🔁️":"1f501","👆":"1f446","👆️":"1f446","➕":"2795","➕️":"2795","📦":"1f4e6","📦️":"1f4e6","🛒":"1f6d2","🛒️":"1f6d2","📍":"1f4cd","📍️":"1f4cd","🥪":"1f96a","🥪️":"1f96a"};
+const THEMES_EMOJI = {"Féculents":["🍝","🍜","🍚","🥔","🌽","🍞","🥖","🥐","🥯","🥨","🍪","🧇","🥞"],"Protéines":["🧀","🥩","🍖","🍗","🥓","🐟","🥫","🥚","🍳","🫘","🌰","🥜"],"Sucré":["🍫","🍬","🍯","🍩","🍰","🍿","🧈"],"Fruits":["🍎","🍌","🍇","🍊","🍋","🍓","🍑","🥭","🍍","🥥","🫒"],"Légumes":["🥕","🧅","🧄","🥗","🌶️","🍄"],"Boissons":["💧","🥛","☕","🍵","🧃","🥤","🍺","🍷","🧊"],"Assaisonnement":["🧂","🫗","🥄"],"Abri et couchage":["🎒","🏕️","⛺","🛏️","🛌","🪵","🔥"],"Cuisine":["🍲","🍴","🥢","🥣","🫙","🧽","🧴"],"Vêtements":["🧥","👕","👖","🩳","🧦","🥾","👟","🧢","👒","🧣","🧤","🕶️"],"Météo":["☀️","☔","🌂","❄️","🌧️","⛅"],"Éclairage et énergie":["🔦","🕯️","🔋","🔌","📱","⌚"],"Orientation":["🧭","🗺️","📡","📖","📝","📷","🔭"],"Outils et sécurité":["🔪","🪓","🪢","🧗","⛏️","🥽","🧯","🧰","🔧","🪡","🧵","🔑","🪪","💳"],"Hygiène et santé":["🧼","🧻","🪥","💊","🩹","🩺","🗑️","🧺","♻️"]};
+const BIBLIOTHEQUE = [{"e":"🍲","n":"Plat lyophilisé","d":450,"p":140,"m":"soir"},{"e":"🍜","n":"Nouilles instantanées","d":450,"p":85,"m":"soir"},{"e":"🍝","n":"Pâtes sèches","d":360,"p":100,"m":"soir"},{"e":"🍚","n":"Riz sec","d":350,"p":100,"m":"soir"},{"e":"🍚","n":"Semoule sèche","d":360,"p":100,"m":"soir"},{"e":"🥔","n":"Purée en flocons","d":355,"p":80,"m":"soir"},{"e":"🫘","n":"Lentilles sèches","d":350,"p":80,"m":"soir"},{"e":"🍲","n":"Soupe déshydratée","d":330,"p":20,"m":"soir"},{"e":"🍞","n":"Muesli","d":380,"p":90,"m":"petit-dej"},{"e":"🥛","n":"Lait en poudre","d":500,"p":25,"m":"petit-dej"},{"e":"🥛","n":"Chocolat en poudre","d":380,"p":25,"m":"petit-dej"},{"e":"☕","n":"Café soluble","d":0,"p":3,"m":"petit-dej"},{"e":"🍵","n":"Thé","d":0,"p":2,"m":"petit-dej"},{"e":"🥐","n":"Biscottes","d":400,"p":30,"m":"petit-dej"},{"e":"🥖","n":"Pain des fleurs","d":430,"p":30,"m":"midi"},{"e":"🍞","n":"Pain de mie","d":270,"p":60,"m":"midi"},{"e":"🥩","n":"Saucisson sec","d":450,"p":50,"m":"midi"},{"e":"🍖","n":"Jambon sec","d":250,"p":40,"m":"midi"},{"e":"🧀","n":"Fromage à pâte dure","d":380,"p":50,"m":"midi"},{"e":"🥓","n":"Lardons","d":300,"p":50,"m":"midi"},{"e":"🥫","n":"Sardines à l'huile","d":220,"p":90,"m":"midi"},{"e":"🐟","n":"Thon en boîte","d":120,"p":100,"m":"midi"},{"e":"🥚","n":"Œuf en poudre","d":570,"p":20,"m":"petit-dej"},{"e":"🍫","n":"Chocolat noir","d":550,"p":30,"m":"encas"},{"e":"🍪","n":"Barre de céréales","d":400,"p":35,"m":"encas"},{"e":"🥜","n":"Cacahuètes","d":570,"p":40,"m":"encas"},{"e":"🌰","n":"Amandes","d":600,"p":30,"m":"encas"},{"e":"🌰","n":"Noix de cajou","d":570,"p":30,"m":"encas"},{"e":"🍇","n":"Raisins secs","d":300,"p":40,"m":"encas"},{"e":"🍑","n":"Abricots secs","d":240,"p":40,"m":"encas"},{"e":"🍌","n":"Banane séchée","d":350,"p":30,"m":"encas"},{"e":"🍯","n":"Miel","d":320,"p":20,"m":"encas"},{"e":"🧈","n":"Beurre de cacahuète","d":590,"p":30,"m":"encas"},{"e":"🍬","n":"Pâte de fruits","d":340,"p":25,"m":"encas"},{"e":"🍩","n":"Pâte d'amande","d":450,"p":30,"m":"encas"},{"e":"🍿","n":"Biscuits secs","d":450,"p":35,"m":"encas"},{"e":"🫗","n":"Huile d'olive","d":900,"p":20,"m":"soir"},{"e":"🧈","n":"Beurre clarifié","d":900,"p":15,"m":"soir"},{"e":"🧂","n":"Sel","d":0,"p":5,"m":"soir"},{"e":"🧃","n":"Boisson en poudre","d":380,"p":30,"m":"encas"},{"e":"🍎","n":"Pomme fraîche","d":52,"p":180,"m":"encas"},{"e":"🥕","n":"Carotte fraîche","d":41,"p":100,"m":"midi"},{"e":"🧃","n":"Compote en gourde","d":60,"p":90,"m":"encas"}];
+
+/* Remplace, dans tous les nœuds texte, les émojis connus par leur image.
+   Si un fichier manque, le caractère d'origine est remis en place. */
+function fragmentEmoji(texte) {
+    const frag = document.createDocumentFragment();
+    let i = 0, tampon = '', trouve = false;
+
+    while (i < texte.length) {
+        let fichier = null, taille = 0;
+        for (let l = 3; l >= 1; l--) {
+            const bout = texte.substr(i, l);
+            if (EMOJIS[bout]) { fichier = EMOJIS[bout]; taille = l; break; }
+        }
+        if (!fichier) { tampon += texte[i]; i++; continue; }
+
+        if (tampon) { frag.appendChild(document.createTextNode(tampon)); tampon = ''; }
+        const img = document.createElement('img');
+        img.className = 'emj';
+        img.src = 'emoji/' + fichier + '.svg';
+        img.alt = texte.substr(i, taille);
+        img.onerror = function () {
+            if (this.parentNode) this.parentNode.replaceChild(document.createTextNode(this.alt), this);
+        };
+        frag.appendChild(img);
+        i += taille;
+        trouve = true;
+    }
+
+    if (!trouve) return null;
+    if (tampon) frag.appendChild(document.createTextNode(tampon));
+    return frag;
+}
+
+function majEmojis() {
+    const parcours = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+    const cibles = [];
+    let n;
+    while ((n = parcours.nextNode())) {
+        if (n.nodeValue && /[^\u0000-\u00ff]/.test(n.nodeValue)) cibles.push(n);
+    }
+    cibles.forEach(noeud => {
+        const frag = fragmentEmoji(noeud.nodeValue);
+        if (frag && noeud.parentNode) noeud.parentNode.replaceChild(frag, noeud);
+    });
+}
+
+/* ==========================================================================
+   Nourriture
+   ========================================================================== */
+
+const MOMENTS = [
+    { cle: 'petit-dej', nom: '☕ Petits-déjeuners' },
+    { cle: 'midi',      nom: '🥪 Midis' },
+    { cle: 'soir',      nom: '🍲 Soirs' },
+    { cle: 'encas',     nom: '🍫 En-cas' }
+];
+
+const DENSITE_HAUTE = 440;   /* kcal/100 g : menu dense, sac léger */
+const DENSITE_BASSE = 320;   /* en dessous, on porte surtout de l'eau */
+
+function nomMoment(cle) {
+    const m = MOMENTS.filter(x => x.cle === cle)[0];
+    return m ? m.nom : cle;
+}
+
+function formaterMasse(grammes) {
+    if (grammes >= 1000) {
+        return (Math.round(grammes / 10) / 100).toString().replace('.', ',') + ' kg';
+    }
+    return Math.round(grammes) + ' g';
+}
+
+function formaterEntier(n) {
+    return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '\u202f');
+}
+
+function classeDensite(d) {
+    if (d >= DENSITE_HAUTE) return 'd-haute';
+    if (d >= DENSITE_BASSE) return 'd-moyenne';
+    return 'd-basse';
+}
+
+function bilanVivres() {
+    let kcal = 0, masse = 0, articles = 0;
+    MOMENTS.forEach(m => (vivres[m.cle] || []).forEach(a => {
+        kcal += a.k * a.q;
+        masse += a.p * a.q;
+        articles += a.q;
+    }));
+    return {
+        kcal: kcal, masse: masse, articles: articles,
+        besoin: reglages.jours * reglages.kcalJour,
+        densite: masse ? (kcal / masse) * 100 : 0,
+        autonomie: reglages.kcalJour ? kcal / reglages.kcalJour : 0,
+        parJour: reglages.jours ? masse / reglages.jours : 0
+    };
+}
+
+function afficherVivres() {
+    const liste = document.getElementById('liste');
+    liste.innerHTML = '';
+    majEnteteVivres(bilanVivres());
+
+    let total = 0;
+    MOMENTS.forEach(moment => {
+        const articles = vivres[moment.cle] || [];
+        if (!articles.length) return;
+        total += articles.length;
+
+        const bloc = document.createElement('div');
+        bloc.className = 'groupe';
+
+        const titre = document.createElement('div');
+        titre.className = 'groupe-titre';
+        const nom = document.createElement('span');
+        nom.textContent = moment.nom;
+        const compte = document.createElement('em');
+        const kcalMoment = articles.reduce((t, a) => t + a.k * a.q, 0);
+        compte.textContent = formaterEntier(kcalMoment) + ' kcal';
+        titre.appendChild(nom);
+        titre.appendChild(compte);
+        bloc.appendChild(titre);
+
+        const carte = document.createElement('div');
+        carte.className = 'carte';
+
+        articles.forEach((article, index) => {
+            const ligne = document.createElement('div');
+            ligne.className = 'ligne ligne-food';
+
+            const qte = document.createElement('div');
+            qte.className = 'qte';
+            qte.textContent = '×' + article.q;
+            ligne.appendChild(qte);
+
+            const nomBloc = document.createElement('div');
+            nomBloc.className = 'nom-food';
+            const b = document.createElement('b');
+            b.textContent = article.n;
+            const i = document.createElement('i');
+            i.textContent = formaterMasse(article.p) + ' l\u2019unité · ' + formaterEntier(article.k) + ' kcal';
+            nomBloc.appendChild(b);
+            nomBloc.appendChild(i);
+            ligne.appendChild(nomBloc);
+
+            const densite = article.p ? (article.k / article.p) * 100 : 0;
+            const bilan = document.createElement('div');
+            bilan.className = 'bilan-food';
+            const tot = document.createElement('b');
+            tot.textContent = formaterEntier(article.k * article.q);
+            const dd = document.createElement('i');
+            dd.className = classeDensite(densite);
+            dd.textContent = Math.round(densite) + '/100g';
+            bilan.appendChild(tot);
+            bilan.appendChild(dd);
+            ligne.appendChild(bilan);
+
+            appuiLong(ligne, () => menuAliment(moment.cle, index));
+
+            const hote = document.createElement('div');
+            hote.className = 'ligne-hote';
+            const fond = document.createElement('div');
+            fond.className = 'fond-glisse';
+            hote.appendChild(fond);
+            hote.appendChild(ligne);
+
+            rendreGlissable(hote.lastChild, fond,
+                droite => droite ? { texte: '+ 1', couleur: 'c-vert' }
+                                 : (article.q > 1 ? { texte: '− 1', couleur: 'c-ambre' } : null),
+                droite => {
+                    if (!droite && article.q <= 1) return false;
+                    article.q += droite ? 1 : -1;
+                    vibrer(12);
+                    sauver(); afficher();
+                    return true;
+                });
+
+            carte.appendChild(hote);
+        });
+
+        bloc.appendChild(carte);
+        liste.appendChild(bloc);
+    });
+
+    if (!total) {
+        const vide = document.createElement('div');
+        vide.className = 'vide';
+        vide.textContent = 'Aucun aliment pour l\u2019instant.\nTouche le + pour composer tes repas.';
+        vide.style.whiteSpace = 'pre-line';
+        liste.appendChild(vide);
+    }
+
+    majEmojis();
+}
+
+function majEnteteVivres(b) {
+    const zone = document.getElementById('entete-food');
+    const position = Math.max(0, Math.min(100, ((b.densite - 200) / 400) * 100));
+    const manque = b.besoin - b.kcal;
+    const autonomieCourte = b.autonomie < reglages.jours;
+
+    let phrase;
+    if (!b.kcal) phrase = 'Commence par ajouter tes repas.';
+    else if (manque > 0) phrase = 'Il te manque <b>' + formaterEntier(manque) + ' kcal</b> pour boucler ' + reglages.jours + ' jours';
+    else phrase = 'Tu as <b>' + formaterEntier(-manque) + ' kcal</b> d\u2019avance';
+
+    let alertes = '';
+    if (reglages.jours > 7) {
+        const kilos = formaterMasse(reglages.jours * 800);
+        alertes += '<div class="avertissement">⚠️ <b>' + reglages.jours + ' jours de vivres, c\u2019est environ ' +
+                   kilos + ' à porter.</b> Découpe ta traversée en sections entre deux ravitaillements et ' +
+                   'planifie une section à la fois — 5 à 7 jours au maximum.</div>';
+    }
+    if (b.masse && b.densite < DENSITE_BASSE) {
+        alertes += '<div class="avertissement">⚠️ <b>' + Math.round(b.densite) + ' kcal/100 g, c\u2019est peu dense.</b> ' +
+                   'Tu portes surtout de l\u2019eau. Vise 440 en remplaçant le frais et les conserves par du sec et du gras.</div>';
+    }
+
+    zone.innerHTML =
+        '<div class="hero hero-food">' +
+            '<div class="food-total">' + formaterEntier(b.kcal) + '<small>kcal</small></div>' +
+            '<div class="food-auto' + (autonomieCourte ? ' court' : '') + '">' +
+                (Math.round(b.autonomie * 10) / 10).toString().replace('.', ',') +
+                ' jour' + (b.autonomie >= 2 ? 's' : '') + ' d\u2019autonomie' +
+                (autonomieCourte ? ' sur ' + reglages.jours : '') +
+            '</div>' +
+            '<div class="food-det">' + formaterMasse(b.masse) + ' de vivres · ' +
+                formaterMasse(b.parJour) + ' par jour<br>' + phrase + '</div>' +
+            '<div class="densite">' +
+                '<div class="echelle"><div class="curseur" style="left:' + position + '%"></div></div>' +
+                '<div class="legende"><span>LOURD</span><span>' + Math.round(b.densite) +
+                ' kcal/100 g</span><span>ULTRALÉGER</span></div>' +
+            '</div>' +
+        '</div>' +
+        '<div class="reglages">' +
+            reglageHTML('jours', 'Durée', reglages.jours + ' j',
+                        reglages.jours >= 7 ? '≈ ' + (Math.round(reglages.jours / 7 * 10) / 10).toString().replace('.', ',') + ' sem.' : 'jours de marche') +
+            reglageHTML('kcal', 'Besoin / jour', formaterEntier(reglages.kcalJour), 'kcal') +
+        '</div>' + alertes;
+
+    zone.querySelectorAll('button[data-reg]').forEach(btn => {
+        btn.onclick = () => {
+            const pas = parseInt(btn.dataset.pas, 10);
+            if (btn.dataset.reg === 'jours') {
+                reglages.jours = Math.max(1, Math.min(60, reglages.jours + pas));
+            } else {
+                reglages.kcalJour = Math.max(1500, Math.min(6000, reglages.kcalJour + pas * 100));
+            }
+            sauver(); afficher();
+        };
+    });
+}
+
+function reglageHTML(cle, etiquette, valeur, sous) {
+    return '<div class="reglage"><span>' + etiquette + '</span><div class="valeur">' +
+           '<div><b>' + valeur + '</b><i>' + sous + '</i></div>' +
+           '<div class="pm">' +
+             '<button data-reg="' + cle + '" data-pas="-1">−</button>' +
+             '<button data-reg="' + cle + '" data-pas="1">+</button>' +
+           '</div></div></div>';
+}
+
+/* ---------------------------------------------------------------- Ajout */
+
+function ajouterAliment() {
+    ouvrirFeuille('Ajouter un aliment', corps => {
+        corps.innerHTML = '<input type="search" class="recherche" id="f-cherche" ' +
+                          'placeholder="Chercher : pâtes, chocolat, huile…" autocomplete="off">' +
+                          '<div class="resultats" id="f-resultats"></div>';
+
+        const champ = corps.querySelector('#f-cherche');
+        const zone = corps.querySelector('#f-resultats');
+
+        function proposer() {
+            const q = sansAccent(champ.value.trim());
+            zone.innerHTML = '';
+            const trouves = BIBLIOTHEQUE
+                .filter(a => !q || sansAccent(a.n).includes(q))
+                .sort((x, y) => {
+                    if (!q) return 0;
+                    /* Ce qui commence par la recherche passe devant : taper
+                       « huile » doit proposer l'huile avant les sardines. */
+                    const dx = sansAccent(x.n).indexOf(q);
+                    const dy = sansAccent(y.n).indexOf(q);
+                    return dx !== dy ? dx - dy : x.n.localeCompare(y.n, 'fr');
+                });
+
+            trouves.slice(0, 40).forEach(a => {
+                const b = document.createElement('button');
+                b.className = 'prop';
+                b.innerHTML = '<span class="lib">' + a.e + ' ' + a.n + '</span>' +
+                              '<span class="dens">' + a.d + '/100g</span>';
+                b.onclick = () => detailAliment({
+                    n: a.e + ' ' + a.n,
+                    p: a.p,
+                    k: Math.round(a.d * a.p / 100),
+                    q: 1
+                }, a.m, null);
+                zone.appendChild(b);
+            });
+
+            const libre = document.createElement('button');
+            libre.className = 'prop';
+            libre.innerHTML = '<span class="lib">➕ Créer « ' +
+                              (champ.value.trim() || 'un aliment' ) + ' »</span>';
+            libre.onclick = () => detailAliment(
+                { n: champ.value.trim(), p: 100, k: 400, q: 1 }, 'encas', null);
+            zone.appendChild(libre);
+
+            majEmojis();
+        }
+
+        champ.addEventListener('input', proposer);
+        proposer();
+
+        bouton(corps, 'Annuler', 'annuler', fermerFeuille);
+    });
+}
+
+/* moment : moment proposé. position : {cle, index} si modification, sinon null. */
+function detailAliment(article, moment, position) {
+    fermerFeuille();
+    ouvrirFeuille(position ? 'Modifier l\u2019aliment' : 'Ajouter un aliment', corps => {
+        corps.innerHTML =
+            '<label for="a-nom">Nom</label>' +
+            '<input type="text" id="a-nom">' +
+            '<label for="a-moment">Repas</label>' +
+            '<select id="a-moment"></select>' +
+            '<label for="a-poids">Poids d\u2019une unité (g)</label>' +
+            '<input type="number" id="a-poids" inputmode="numeric">' +
+            '<label for="a-kcal">Calories d\u2019une unité (kcal)</label>' +
+            '<input type="number" id="a-kcal" inputmode="numeric">' +
+            '<label for="a-qte">Quantité</label>' +
+            '<input type="number" id="a-qte" inputmode="numeric">';
+
+        const champNom = corps.querySelector('#a-nom');
+        const select = corps.querySelector('#a-moment');
+        const champPoids = corps.querySelector('#a-poids');
+        const champKcal = corps.querySelector('#a-kcal');
+        const champQte = corps.querySelector('#a-qte');
+
+        MOMENTS.forEach(m => {
+            const o = document.createElement('option');
+            o.value = m.cle; o.textContent = m.nom;
+            select.appendChild(o);
+        });
+
+        champNom.value = article.n;
+        select.value = position ? position.cle : moment;
+        champPoids.value = article.p;
+        champKcal.value = article.k;
+        champQte.value = article.q;
+
+        bouton(corps, '😀 Choisir un symbole', '', () => {
+            const enCours = {
+                n: champNom.value, p: +champPoids.value,
+                k: +champKcal.value, q: +champQte.value
+            };
+            choisirEmoji(emoji => {
+                enCours.n = (emoji + ' ' + enCours.n.replace(/^\S+\s/, '')).trim();
+                detailAliment(enCours, select.value, position);
+            }, () => detailAliment(enCours, select.value, position));
+        });
+
+        bouton(corps, position ? 'Enregistrer' : 'Ajouter', 'principal', () => {
+            const nom = champNom.value.trim();
+            const p = parseInt(champPoids.value, 10);
+            const k = parseInt(champKcal.value, 10);
+            const q = parseInt(champQte.value, 10);
+            if (!nom) { toast('Donne un nom à l\u2019aliment'); return; }
+            if (isNaN(p) || p < 0) { toast('Poids invalide'); return; }
+            if (isNaN(k) || k < 0) { toast('Calories invalides'); return; }
+            if (isNaN(q) || q < 1) { toast('Quantité invalide'); return; }
+
+            if (position) supprimerAliment(position.cle, position.index);
+            const cible = select.value;
+            if (!vivres[cible]) vivres[cible] = [];
+            vivres[cible].push({ n: nom, p: p, k: k, q: q });
+
+            sauver(); afficher(); fermerFeuille();
+            toast(position ? 'Aliment modifié' : '« ' + nom + ' » ajouté');
+        });
+
+        bouton(corps, 'Annuler', 'annuler', fermerFeuille);
+    });
+}
+
+function supprimerAliment(cle, index) {
+    if (vivres[cle]) vivres[cle].splice(index, 1);
+}
+
+function menuAliment(cle, index) {
+    const article = vivres[cle][index];
+    ouvrirFeuille(article.n, corps => {
+        bouton(corps, '✏️ Modifier', '', () => {
+            detailAliment(Object.assign({}, article), cle, { cle: cle, index: index });
+        });
+        bouton(corps, '🗑️ Supprimer', 'danger', () => {
+            fermerFeuille();
+            supprimerAliment(cle, index);
+            sauver(); afficher();
+            toast('Aliment supprimé');
+        });
+        bouton(corps, 'Annuler', 'annuler', fermerFeuille);
+    });
+}
+
+/* ---------------------------------------------------------------- Symboles */
+
+function choisirEmoji(rappel, retour) {
+    fermerFeuille();
+    ouvrirFeuille('Choisir un symbole', corps => {
+        for (const theme in THEMES_EMOJI) {
+            const titre = document.createElement('div');
+            titre.className = 'titre-theme';
+            titre.textContent = theme;
+            corps.appendChild(titre);
+
+            const grille = document.createElement('div');
+            grille.className = 'grille-emoji';
+            THEMES_EMOJI[theme].forEach(emoji => {
+                const b = document.createElement('button');
+                b.textContent = emoji;
+                b.onclick = () => { fermerFeuille(); rappel(emoji); };
+                grille.appendChild(b);
+            });
+            corps.appendChild(grille);
+        }
+        bouton(corps, 'Retour', 'annuler', () => { fermerFeuille(); if (retour) retour(); });
+        majEmojis();
+    });
+}
+
+/* ---------------------------------------------------------------- Courses */
+
+function listeDeCourses() {
+    const cumul = {};
+    MOMENTS.forEach(m => (vivres[m.cle] || []).forEach(a => {
+        if (!cumul[a.n]) cumul[a.n] = { q: 0, masse: 0, kcal: 0 };
+        cumul[a.n].q += a.q;
+        cumul[a.n].masse += a.p * a.q;
+        cumul[a.n].kcal += a.k * a.q;
+    }));
+    return cumul;
+}
+
+function ouvrirCourses() {
+    const cumul = listeDeCourses();
+    const noms = Object.keys(cumul).sort((a, b) => a.localeCompare(b, 'fr'));
+
+    if (!noms.length) { toast('Ta liste de vivres est vide'); return; }
+
+    const b = bilanVivres();
+    let texte = 'Mon sac à dos — liste de courses\n' +
+                reglages.jours + ' jours · ' + formaterEntier(reglages.kcalJour) + ' kcal/jour\n\n';
+    noms.forEach(n => {
+        texte += cumul[n].q + ' × ' + n + '  (' + formaterMasse(cumul[n].masse) + ')\n';
+    });
+    texte += '\nTotal : ' + formaterMasse(b.masse) + ' · ' + formaterEntier(b.kcal) + ' kcal';
+
+    ouvrirFeuille('Liste de courses', corps => {
+        const bloc = document.createElement('div');
+        bloc.className = 'courses';
+        let html = '<h4>' + reglages.jours + ' jours · ' + formaterEntier(reglages.kcalJour) + ' kcal/jour</h4>';
+        noms.forEach(n => {
+            html += '<div><span>' + cumul[n].q + ' × ' + n + '</span><span>' +
+                    formaterMasse(cumul[n].masse) + '</span></div>';
+        });
+        html += '<h4>Total</h4><div><span>' + formaterMasse(b.masse) + '</span><span>' +
+                formaterEntier(b.kcal) + ' kcal</span></div>';
+        bloc.innerHTML = html;
+        corps.appendChild(bloc);
+
+        bouton(corps, '📋 Copier la liste', 'principal', () => {
+            copierTexte(texte);
+        });
+        bouton(corps, 'Fermer', 'annuler', fermerFeuille);
+        majEmojis();
+    });
+}
+
+function copierTexte(texte) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(texte)
+            .then(() => toast('Liste copiée'))
+            .catch(() => copierRepli(texte));
+    } else {
+        copierRepli(texte);
+    }
+}
+
+function copierRepli(texte) {
+    const zone = document.createElement('textarea');
+    zone.value = texte;
+    zone.style.position = 'fixed';
+    zone.style.opacity = '0';
+    document.body.appendChild(zone);
+    zone.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(zone);
+    toast(ok ? 'Liste copiée' : 'Copie impossible sur cet appareil');
+}
+
+/* ---------------------------------------------------------------- Bascule */
+
+function majBoutonVue() {
+    const btn = document.getElementById('btn-vue');
+    btn.textContent = (vue === 'sac') ? '🍲' : '🎒';
+    btn.setAttribute('aria-label', vue === 'sac' ? 'Voir la nourriture' : 'Voir le sac');
+    document.querySelector('.entete-haut h1').textContent =
+        (vue === 'sac') ? 'Mon sac à dos' : '🍲 Nourriture';
+    document.getElementById('hero-sac').hidden = (vue !== 'sac');
+    document.getElementById('barre-sac').hidden = (vue !== 'sac');
+    document.getElementById('entete-food').hidden = (vue !== 'food');
+}
+
+function basculerVue() {
+    vue = (vue === 'sac') ? 'food' : 'sac';
+    majBoutonVue();
+    afficher();
+    window.scrollTo(0, 0);
+}
+
+document.getElementById('btn-vue').onclick = basculerVue;
+
+/* ==========================================================================
    Tutoriel — affiché une fois, puis rappelable depuis le menu
    ========================================================================== */
 
@@ -1074,7 +1745,9 @@ document.getElementById('segments').addEventListener('click', e => {
     afficher();
 });
 
+majBoutonVue();
 afficher();
+majEmojis();
 
 if (!tutoDejaVu()) ouvrirTuto();
 </script>

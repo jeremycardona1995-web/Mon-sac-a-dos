@@ -49,6 +49,38 @@ moment depuis le menu **⋯**.
   ce que pèse encore ce qu'il reste à prendre. Les objets sans poids sont
   simplement ignorés du calcul.
 
+## 🍲 Nourriture
+
+Le bouton **🍲**, au-dessus du **+**, bascule entre le sac et la nourriture.
+
+Réglez la **durée en jours** et votre **besoin quotidien en calories** (2 500 à
+3 500 kcal/jour en terrain courant, davantage en montagne). L'application
+calcule alors vos calories totales, votre autonomie réelle, le poids des vivres
+et le poids par jour.
+
+La mesure qui compte est la **densité calorique**, en kcal pour 100 g. C'est
+elle qui décide du poids de votre sac, pas les calories seules :
+
+| Densité | Lecture |
+|---|---|
+| 440 kcal/100 g et plus | menu dense, sac léger |
+| 320 à 440 | correct |
+| moins de 320 | vous portez surtout de l'eau |
+
+Une jauge situe votre menu entre « lourd » et « ultraléger », et chaque aliment
+affiche sa propre densité en couleur.
+
+**Ajouter un aliment** : le **+** ouvre une bibliothèque d'une quarantaine
+d'aliments de randonnée déjà renseignés. Tapez les premières lettres, touchez
+la proposition, ajustez la quantité. Vous pouvez aussi créer un aliment libre.
+
+**Ajuster les quantités** : glissez vers la droite pour ajouter une unité, vers
+la gauche pour en retirer une. Appui long pour modifier ou supprimer.
+
+Au-delà de 7 jours, l'application vous avertit : personne ne porte trois
+semaines de vivres. Sur une longue traversée, planifiez une section entre deux
+ravitaillements à la fois.
+
 ## Le menu ⋯
 
 - **🥾 Nouvelle rando** — décoche tout d'un coup, sans toucher à votre
@@ -56,6 +88,8 @@ moment depuis le menu **⋯**.
 - **💾 Exporter ma liste** — enregistre tout dans un fichier `.json`.
 - **📂 Importer une liste** — restaure un fichier exporté, ou récupère la liste
   de quelqu'un d'autre. La liste en cours est remplacée.
+- **🛒 Liste de courses** — récapitule les quantités totales à acheter, avec
+  les poids, et se copie en un geste.
 - **⚠️ Réinitialiser** — revient à l'inventaire d'origine. Vos ajouts et vos
   poids sont perdus.
 
@@ -86,6 +120,12 @@ Un seul fichier `index.html` : HTML, CSS et JavaScript, sans framework ni
 dépendance, sans étape de compilation. `sw.js` gère le cache hors-ligne en
 stratégie réseau-d'abord, `manifest.webmanifest` déclare l'installation.
 
+## Crédits
+
+Les émojis proviennent de [Twemoji](https://github.com/jdecked/twemoji),
+graphismes sous licence [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
 ## Licence
 
-MIT — voir [LICENSE](LICENSE).
+Le code est sous licence MIT — voir [LICENSE](LICENSE). Les fichiers du dossier
+`emoji/` restent sous CC-BY 4.0, conformément à la licence de Twemoji.
