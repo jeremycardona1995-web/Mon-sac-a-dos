@@ -1,187 +1,1288 @@
 {
  "Féculents": [
-  "🍝",
-  "🍜",
-  "🍚",
-  "🥔",
-  "🌽",
-  "🍞",
-  "🥖",
-  "🥐",
-  "🥯",
-  "🥨",
-  "🍪",
-  "🧇",
-  "🥞"
+  [
+   "🍝",
+   "pâtes"
+  ],
+  [
+   "🍜",
+   "nouilles ramen"
+  ],
+  [
+   "🍚",
+   "riz"
+  ],
+  [
+   "🍛",
+   "riz au curry"
+  ],
+  [
+   "🥔",
+   "pomme de terre"
+  ],
+  [
+   "🍠",
+   "patate douce"
+  ],
+  [
+   "🌽",
+   "maïs"
+  ],
+  [
+   "🍞",
+   "pain de mie"
+  ],
+  [
+   "🥖",
+   "baguette"
+  ],
+  [
+   "🥐",
+   "croissant"
+  ],
+  [
+   "🥯",
+   "bagel"
+  ],
+  [
+   "🥨",
+   "bretzel"
+  ],
+  [
+   "🫓",
+   "pain plat"
+  ],
+  [
+   "🥞",
+   "pancakes"
+  ],
+  [
+   "🧇",
+   "gaufre"
+  ],
+  [
+   "🍪",
+   "biscuit"
+  ],
+  [
+   "🫘",
+   "haricots secs légumineuse"
+  ],
+  [
+   "🌾",
+   "céréales blé"
+  ]
  ],
  "Protéines": [
-  "🧀",
-  "🥩",
-  "🍖",
-  "🍗",
-  "🥓",
-  "🐟",
-  "🥫",
-  "🥚",
-  "🍳",
-  "🫘",
-  "🌰",
-  "🥜"
- ],
- "Sucré": [
-  "🍫",
-  "🍬",
-  "🍯",
-  "🍩",
-  "🍰",
-  "🍿",
-  "🧈"
+  [
+   "🧀",
+   "fromage"
+  ],
+  [
+   "🥩",
+   "viande steak saucisson"
+  ],
+  [
+   "🍖",
+   "jambon viande os"
+  ],
+  [
+   "🍗",
+   "poulet cuisse"
+  ],
+  [
+   "🥓",
+   "lard bacon lardons"
+  ],
+  [
+   "🐟",
+   "poisson"
+  ],
+  [
+   "🐠",
+   "poisson tropical"
+  ],
+  [
+   "🦐",
+   "crevette"
+  ],
+  [
+   "🦀",
+   "crabe"
+  ],
+  [
+   "🍤",
+   "friture crevette"
+  ],
+  [
+   "🍣",
+   "sushi"
+  ],
+  [
+   "🥫",
+   "conserve boîte de conserve"
+  ],
+  [
+   "🥚",
+   "œuf"
+  ],
+  [
+   "🍳",
+   "œuf poêlé"
+  ],
+  [
+   "🌰",
+   "noix châtaigne amande"
+  ],
+  [
+   "🥜",
+   "cacahuète arachide"
+  ]
  ],
  "Fruits": [
-  "🍎",
-  "🍌",
-  "🍇",
-  "🍊",
-  "🍋",
-  "🍓",
-  "🍑",
-  "🥭",
-  "🍍",
-  "🥥",
-  "🫒"
+  [
+   "🍎",
+   "pomme"
+  ],
+  [
+   "🍐",
+   "poire"
+  ],
+  [
+   "🍌",
+   "banane"
+  ],
+  [
+   "🍇",
+   "raisin"
+  ],
+  [
+   "🍊",
+   "orange"
+  ],
+  [
+   "🍋",
+   "citron"
+  ],
+  [
+   "🍓",
+   "fraise"
+  ],
+  [
+   "🫐",
+   "myrtille"
+  ],
+  [
+   "🍒",
+   "cerise"
+  ],
+  [
+   "🍑",
+   "pêche"
+  ],
+  [
+   "🥭",
+   "mangue"
+  ],
+  [
+   "🍍",
+   "ananas"
+  ],
+  [
+   "🥥",
+   "noix de coco"
+  ],
+  [
+   "🥝",
+   "kiwi"
+  ],
+  [
+   "🍈",
+   "melon"
+  ],
+  [
+   "🍉",
+   "pastèque"
+  ],
+  [
+   "🫒",
+   "olive"
+  ],
+  [
+   "🥑",
+   "avocat"
+  ]
  ],
  "Légumes": [
-  "🥕",
-  "🧅",
-  "🧄",
-  "🥗",
-  "🌶️",
-  "🍄"
+  [
+   "🥕",
+   "carotte"
+  ],
+  [
+   "🧅",
+   "oignon"
+  ],
+  [
+   "🧄",
+   "ail"
+  ],
+  [
+   "🥗",
+   "salade"
+  ],
+  [
+   "🥬",
+   "salade verte"
+  ],
+  [
+   "🥦",
+   "brocoli"
+  ],
+  [
+   "🫑",
+   "poivron"
+  ],
+  [
+   "🌶️",
+   "piment"
+  ],
+  [
+   "🍅",
+   "tomate"
+  ],
+  [
+   "🥒",
+   "concombre cornichon"
+  ],
+  [
+   "🍆",
+   "aubergine"
+  ],
+  [
+   "🍄",
+   "champignon"
+  ],
+  [
+   "🫛",
+   "petits pois"
+  ],
+  [
+   "🫚",
+   "gingembre"
+  ],
+  [
+   "🌱",
+   "pousse germe"
+  ]
+ ],
+ "Sucré et gras": [
+  [
+   "🍫",
+   "chocolat"
+  ],
+  [
+   "🍬",
+   "bonbon pâte de fruits"
+  ],
+  [
+   "🍭",
+   "sucette"
+  ],
+  [
+   "🍯",
+   "miel"
+  ],
+  [
+   "🧈",
+   "beurre"
+  ],
+  [
+   "🍩",
+   "donut pâte d'amande"
+  ],
+  [
+   "🍰",
+   "gâteau"
+  ],
+  [
+   "🎂",
+   "gâteau anniversaire"
+  ],
+  [
+   "🥧",
+   "tarte tourte"
+  ],
+  [
+   "🍮",
+   "flan"
+  ],
+  [
+   "🍿",
+   "pop-corn biscuits"
+  ],
+  [
+   "🍦",
+   "glace"
+  ],
+  [
+   "🧊",
+   "glaçon"
+  ]
  ],
  "Boissons": [
-  "💧",
-  "🥛",
-  "☕",
-  "🍵",
-  "🧃",
-  "🥤",
-  "🍺",
-  "🍷",
-  "🧊"
+  [
+   "💧",
+   "eau goutte hydratation"
+  ],
+  [
+   "🥛",
+   "lait"
+  ],
+  [
+   "☕",
+   "café"
+  ],
+  [
+   "🍵",
+   "thé"
+  ],
+  [
+   "🫖",
+   "théière"
+  ],
+  [
+   "🧃",
+   "jus compote gourde"
+  ],
+  [
+   "🥤",
+   "gobelet boisson"
+  ],
+  [
+   "🧉",
+   "maté"
+  ],
+  [
+   "🍺",
+   "bière"
+  ],
+  [
+   "🍷",
+   "vin"
+  ],
+  [
+   "🥃",
+   "whisky alcool"
+  ],
+  [
+   "🍾",
+   "bouteille"
+  ],
+  [
+   "🚰",
+   "eau potable"
+  ],
+  [
+   "🚱",
+   "eau non potable"
+  ]
  ],
- "Assaisonnement": [
-  "🧂",
-  "🫗",
-  "🥄"
+ "Repas préparés": [
+  [
+   "🍲",
+   "popote plat mijoté lyophilisé"
+  ],
+  [
+   "🥘",
+   "paella poêlée"
+  ],
+  [
+   "🍱",
+   "bento repas"
+  ],
+  [
+   "🥪",
+   "sandwich"
+  ],
+  [
+   "🌯",
+   "wrap burrito"
+  ],
+  [
+   "🥙",
+   "pita kebab"
+  ],
+  [
+   "🌮",
+   "taco"
+  ],
+  [
+   "🍕",
+   "pizza"
+  ],
+  [
+   "🍔",
+   "burger"
+  ],
+  [
+   "🍟",
+   "frites"
+  ],
+  [
+   "🥟",
+   "raviolis"
+  ],
+  [
+   "🧆",
+   "falafel boulette"
+  ],
+  [
+   "🍢",
+   "brochette"
+  ],
+  [
+   "🫕",
+   "fondue"
+  ],
+  [
+   "🥣",
+   "bol muesli"
+  ],
+  [
+   "🧂",
+   "sel épices"
+  ],
+  [
+   "🫗",
+   "huile verser"
+  ]
  ],
  "Abri et couchage": [
-  "🎒",
-  "🏕️",
-  "⛺",
-  "🛏️",
-  "🛌",
-  "🪵",
-  "🔥"
+  [
+   "🎒",
+   "sac à dos bagage"
+  ],
+  [
+   "🏕️",
+   "camping bivouac tente"
+  ],
+  [
+   "⛺",
+   "tente"
+  ],
+  [
+   "🛖",
+   "cabane refuge"
+  ],
+  [
+   "🛏️",
+   "lit tapis de sol matelas"
+  ],
+  [
+   "🛌",
+   "dormir sac de couchage duvet"
+  ],
+  [
+   "💤",
+   "sommeil"
+  ],
+  [
+   "🪵",
+   "bois bûche"
+  ],
+  [
+   "🔥",
+   "feu flamme réchaud"
+  ],
+  [
+   "🪢",
+   "corde nœud cordelette"
+  ],
+  [
+   "🌂",
+   "parapluie fermé"
+  ],
+  [
+   "🏠",
+   "maison"
+  ],
+  [
+   "🏨",
+   "hôtel gîte"
+  ],
+  [
+   "⛪",
+   "église chapelle"
+  ],
+  [
+   "🌟",
+   "bâche étoile"
+  ]
  ],
  "Cuisine": [
-  "🍲",
-  "🍴",
-  "🥢",
-  "🥣",
-  "🫙",
-  "🧽",
-  "🧴"
+  [
+   "🍴",
+   "couverts"
+  ],
+  [
+   "🥄",
+   "cuillère"
+  ],
+  [
+   "🥢",
+   "baguettes"
+  ],
+  [
+   "🔪",
+   "couteau"
+  ],
+  [
+   "🫙",
+   "bocal boîte"
+  ],
+  [
+   "🧽",
+   "éponge"
+  ],
+  [
+   "🧴",
+   "flacon liquide vaisselle gel douche"
+  ],
+  [
+   "🪣",
+   "seau"
+  ],
+  [
+   "🥡",
+   "boîte à emporter"
+  ],
+  [
+   "🍽️",
+   "assiette repas"
+  ],
+  [
+   "🏺",
+   "réchaud gaz cartouche brûleur"
+  ]
  ],
  "Vêtements": [
-  "🧥",
-  "👕",
-  "👖",
-  "🩳",
-  "🧦",
-  "🥾",
-  "👟",
-  "🧢",
-  "👒",
-  "🧣",
-  "🧤",
-  "🕶️"
+  [
+   "🧥",
+   "veste imperméable"
+  ],
+  [
+   "👕",
+   "tee-shirt"
+  ],
+  [
+   "👖",
+   "pantalon"
+  ],
+  [
+   "🩳",
+   "short"
+  ],
+  [
+   "🧦",
+   "chaussettes"
+  ],
+  [
+   "🩲",
+   "sous-vêtement"
+  ],
+  [
+   "🎽",
+   "débardeur maillot"
+  ],
+  [
+   "🦺",
+   "gilet haute visibilité"
+  ],
+  [
+   "🧣",
+   "écharpe"
+  ],
+  [
+   "🧤",
+   "gants"
+  ],
+  [
+   "🧢",
+   "casquette"
+  ],
+  [
+   "👒",
+   "chapeau"
+  ],
+  [
+   "🕶️",
+   "lunettes de soleil"
+  ],
+  [
+   "👓",
+   "lunettes de vue"
+  ],
+  [
+   "🥽",
+   "lunettes de protection"
+  ],
+  [
+   "🥾",
+   "chaussures de randonnée rando marche"
+  ],
+  [
+   "👟",
+   "baskets"
+  ],
+  [
+   "🩴",
+   "tongs sandales"
+  ],
+  [
+   "👝",
+   "pochette"
+  ],
+  [
+   "👜",
+   "sacoche"
+  ]
  ],
  "Météo": [
-  "☀️",
-  "☔",
-  "🌂",
-  "❄️",
-  "🌧️",
-  "⛅"
+  [
+   "☀️",
+   "soleil"
+  ],
+  [
+   "🌞",
+   "grand soleil"
+  ],
+  [
+   "⛅",
+   "éclaircies"
+  ],
+  [
+   "☁️",
+   "nuage"
+  ],
+  [
+   "🌧️",
+   "pluie"
+  ],
+  [
+   "☔",
+   "parapluie pluie"
+  ],
+  [
+   "⛈️",
+   "orage"
+  ],
+  [
+   "🌩️",
+   "éclair foudre"
+  ],
+  [
+   "❄️",
+   "neige froid"
+  ],
+  [
+   "🌨️",
+   "chute de neige"
+  ],
+  [
+   "🌫️",
+   "brouillard"
+  ],
+  [
+   "💨",
+   "vent"
+  ],
+  [
+   "🌪️",
+   "tornade"
+  ],
+  [
+   "🌡️",
+   "température thermomètre"
+  ],
+  [
+   "🌈",
+   "arc-en-ciel"
+  ],
+  [
+   "🌙",
+   "lune nuit"
+  ],
+  [
+   "⭐",
+   "étoile"
+  ]
  ],
  "Éclairage et énergie": [
-  "🔦",
-  "🕯️",
-  "🔋",
-  "🔌",
-  "📱",
-  "⌚"
+  [
+   "🔦",
+   "lampe frontale torche éclairage"
+  ],
+  [
+   "🕯️",
+   "bougie"
+  ],
+  [
+   "💡",
+   "ampoule lumière"
+  ],
+  [
+   "🔋",
+   "batterie pile"
+  ],
+  [
+   "🪫",
+   "batterie faible déchargée"
+  ],
+  [
+   "🔌",
+   "chargeur prise"
+  ],
+  [
+   "⚡",
+   "électricité énergie"
+  ],
+  [
+   "🔆",
+   "luminosité"
+  ],
+  [
+   "📱",
+   "téléphone"
+  ],
+  [
+   "⌚",
+   "montre"
+  ],
+  [
+   "🎧",
+   "écouteurs casque"
+  ]
  ],
- "Orientation": [
-  "🧭",
-  "🗺️",
-  "📡",
-  "📖",
-  "📝",
-  "📷",
-  "🔭"
+ "Orientation et papiers": [
+  [
+   "🧭",
+   "boussole orientation"
+  ],
+  [
+   "🗺️",
+   "carte"
+  ],
+  [
+   "📍",
+   "point repère"
+  ],
+  [
+   "📡",
+   "gps antenne"
+  ],
+  [
+   "🛰️",
+   "satellite"
+  ],
+  [
+   "📶",
+   "réseau signal"
+  ],
+  [
+   "📻",
+   "radio"
+  ],
+  [
+   "📖",
+   "livre topo"
+  ],
+  [
+   "📝",
+   "carnet notes"
+  ],
+  [
+   "🖊️",
+   "stylo"
+  ],
+  [
+   "📅",
+   "calendrier"
+  ],
+  [
+   "📷",
+   "appareil photo"
+  ],
+  [
+   "🔭",
+   "longue-vue jumelles"
+  ],
+  [
+   "🪪",
+   "papiers identité"
+  ],
+  [
+   "💳",
+   "carte bancaire"
+  ],
+  [
+   "💵",
+   "argent billets"
+  ],
+  [
+   "🪙",
+   "pièce monnaie"
+  ],
+  [
+   "🎫",
+   "ticket billet"
+  ],
+  [
+   "🔑",
+   "clé"
+  ],
+  [
+   "🔒",
+   "cadenas"
+  ]
  ],
- "Outils et sécurité": [
-  "🔪",
-  "🪓",
-  "🪢",
-  "🧗",
-  "⛏️",
-  "🥽",
-  "🧯",
-  "🧰",
-  "🔧",
-  "🪡",
-  "🧵",
-  "🔑",
-  "🪪",
-  "💳"
+ "Outils": [
+  [
+   "🪓",
+   "hache"
+  ],
+  [
+   "🔧",
+   "clé outil"
+  ],
+  [
+   "🪛",
+   "tournevis"
+  ],
+  [
+   "🔨",
+   "marteau"
+  ],
+  [
+   "🪚",
+   "scie"
+  ],
+  [
+   "🧰",
+   "boîte à outils"
+  ],
+  [
+   "⛏️",
+   "piolet pioche"
+  ],
+  [
+   "🪝",
+   "crochet"
+  ],
+  [
+   "🧲",
+   "aimant"
+  ],
+  [
+   "🪡",
+   "aiguille"
+  ],
+  [
+   "🧵",
+   "fil"
+  ],
+  [
+   "✂️",
+   "ciseaux"
+  ],
+  [
+   "📏",
+   "règle mesure"
+  ],
+  [
+   "📌",
+   "punaise"
+  ],
+  [
+   "🔗",
+   "attache maillon"
+  ]
  ],
- "Hygiène et santé": [
-  "🧼",
-  "🧻",
-  "🪥",
-  "💊",
-  "🩹",
-  "🩺",
-  "🗑️",
-  "🧺",
-  "♻️"
+ "Sécurité et signaux": [
+  [
+   "🆘",
+   "sos secours"
+  ],
+  [
+   "📢",
+   "sifflet mégaphone alerte"
+  ],
+  [
+   "⚠️",
+   "danger attention"
+  ],
+  [
+   "⛔",
+   "interdit"
+  ],
+  [
+   "🚧",
+   "travaux obstacle"
+  ],
+  [
+   "🧯",
+   "extincteur"
+  ],
+  [
+   "🦺",
+   "gilet de sécurité"
+  ],
+  [
+   "❗",
+   "important"
+  ],
+  [
+   "ℹ️",
+   "information"
+  ],
+  [
+   "✅",
+   "validé"
+  ],
+  [
+   "❌",
+   "refusé"
+  ]
+ ],
+ "Hygiène": [
+  [
+   "🧼",
+   "savon"
+  ],
+  [
+   "🚿",
+   "douche"
+  ],
+  [
+   "🧻",
+   "papier toilette"
+  ],
+  [
+   "🪥",
+   "brosse à dents"
+  ],
+  [
+   "🦷",
+   "dent dentifrice"
+  ],
+  [
+   "🪒",
+   "rasoir"
+  ],
+  [
+   "🧹",
+   "balai"
+  ],
+  [
+   "🗑️",
+   "poubelle déchets"
+  ],
+  [
+   "🧺",
+   "panier linge sac"
+  ],
+  [
+   "♻️",
+   "recyclage"
+  ],
+  [
+   "🚻",
+   "toilettes"
+  ],
+  [
+   "🫧",
+   "bulles mousse"
+  ]
+ ],
+ "Santé": [
+  [
+   "💊",
+   "médicament"
+  ],
+  [
+   "🩹",
+   "pansement"
+  ],
+  [
+   "🩺",
+   "stéthoscope trousse de secours"
+  ],
+  [
+   "💉",
+   "seringue piqûre"
+  ],
+  [
+   "🧬",
+   "biologie"
+  ],
+  [
+   "🦠",
+   "microbe"
+  ],
+  [
+   "😷",
+   "masque"
+  ],
+  [
+   "🧘",
+   "repos méditation"
+  ],
+  [
+   "🫀",
+   "cœur santé"
+  ]
+ ],
+ "Nature et faune": [
+  [
+   "🏔️",
+   "montagne sommet"
+  ],
+  [
+   "⛰️",
+   "montagne"
+  ],
+  [
+   "🌋",
+   "volcan"
+  ],
+  [
+   "🏞️",
+   "parc nature"
+  ],
+  [
+   "🌲",
+   "sapin conifère"
+  ],
+  [
+   "🌳",
+   "arbre"
+  ],
+  [
+   "🌿",
+   "herbe végétation"
+  ],
+  [
+   "🍂",
+   "feuilles automne"
+  ],
+  [
+   "🐻",
+   "ours"
+  ],
+  [
+   "🦌",
+   "cerf chamois"
+  ],
+  [
+   "🐐",
+   "chèvre bouquetin"
+  ],
+  [
+   "🐑",
+   "mouton brebis"
+  ],
+  [
+   "🐴",
+   "cheval"
+  ],
+  [
+   "🐕",
+   "chien"
+  ],
+  [
+   "🦅",
+   "aigle rapace"
+  ],
+  [
+   "🦉",
+   "hibou chouette"
+  ],
+  [
+   "🐍",
+   "serpent vipère"
+  ],
+  [
+   "🕷️",
+   "araignée"
+  ],
+  [
+   "🦟",
+   "moustique"
+  ],
+  [
+   "🐜",
+   "fourmi"
+  ],
+  [
+   "🐝",
+   "abeille guêpe"
+  ],
+  [
+   "🐾",
+   "traces pattes"
+  ]
+ ],
+ "Activités": [
+  [
+   "🚶",
+   "marche randonnée"
+  ],
+  [
+   "🏃",
+   "course trail"
+  ],
+  [
+   "🧗",
+   "escalade"
+  ],
+  [
+   "🚴",
+   "vélo"
+  ],
+  [
+   "🛶",
+   "canoë kayak"
+  ],
+  [
+   "🎿",
+   "ski"
+  ],
+  [
+   "🏂",
+   "snowboard"
+  ],
+  [
+   "🪂",
+   "parapente"
+  ],
+  [
+   "⛸️",
+   "patins"
+  ],
+  [
+   "🏊",
+   "nage baignade"
+  ],
+  [
+   "🎣",
+   "pêche"
+  ],
+  [
+   "🥇",
+   "médaille"
+  ],
+  [
+   "🎮",
+   "jeu"
+  ],
+  [
+   "🎵",
+   "musique"
+  ]
+ ],
+ "Transports et lieux": [
+  [
+   "🚗",
+   "voiture"
+  ],
+  [
+   "🚌",
+   "bus"
+  ],
+  [
+   "🚂",
+   "train"
+  ],
+  [
+   "✈️",
+   "avion"
+  ],
+  [
+   "⛴️",
+   "ferry bateau"
+  ],
+  [
+   "🚡",
+   "téléphérique"
+  ],
+  [
+   "🅿️",
+   "parking"
+  ],
+  [
+   "⛽",
+   "carburant station"
+  ],
+  [
+   "🏪",
+   "épicerie supérette"
+  ],
+  [
+   "🛒",
+   "courses caddie"
+  ],
+  [
+   "🏥",
+   "hôpital"
+  ],
+  [
+   "📦",
+   "colis ravitaillement"
+  ]
  ],
  "_interface": [
-  "🌟",
-  "🏺",
-  "🌾",
-  "📢",
-  "🚿",
-  "🦷",
-  "🍽️",
-  "⚙️",
-  "✏️",
-  "⚖️",
-  "↩️",
-  "❓",
-  "💾",
-  "📂",
-  "⚠️",
-  "🔁",
-  "👆",
-  "➕",
-  "📦",
-  "🛒",
-  "📍",
-  "🥪",
-  "🍽️",
-  "🧗"
+  [
+   "⚙️",
+   "réglages"
+  ],
+  [
+   "✏️",
+   "modifier"
+  ],
+  [
+   "⚖️",
+   "poids balance"
+  ],
+  [
+   "↩️",
+   "retour"
+  ],
+  [
+   "❓",
+   "aide"
+  ],
+  [
+   "💾",
+   "sauvegarde"
+  ],
+  [
+   "📂",
+   "dossier"
+  ],
+  [
+   "🔁",
+   "répéter"
+  ],
+  [
+   "👆",
+   "appui"
+  ],
+  [
+   "➕",
+   "ajouter"
+  ],
+  [
+   "😀",
+   "symbole"
+  ]
  ]
 }

@@ -46,8 +46,10 @@ menu **⋯**, qui propose celui de la vue en cours.
 - **Renommer, peser ou supprimer** un équipement ou un groupe : appui long sur
   téléphone, clic droit sur ordinateur.
 - **Choisir un symbole** : dans la fenêtre d'ajout, deux boutons ouvrent un
-  sélecteur de 129 émojis classés par thème, l'un pour l'équipement, l'autre
-  pour le groupe. Votre saisie est conservée pendant le choix.
+  sélecteur de 300 symboles répartis en 20 thèmes, l'un pour l'équipement,
+  l'autre pour le groupe. Un champ de recherche les filtre par nom français —
+  « tente », « corde », « réchaud » — sans tenir compte des accents. Votre
+  saisie est conservée pendant le choix.
 - **Peser son sac** : indiquez un poids en grammes sur les objets qui comptent.
   Le total de ce qui est rangé s'affiche dans l'entête, avec entre parenthèses
   ce que pèse encore ce qu'il reste à prendre. Les objets sans poids sont
