@@ -35,7 +35,12 @@ vider les données de navigation l'efface.
 ## Installer sur le téléphone
 
 Ouvrez le lien, puis « Ajouter à l'écran d'accueil » depuis le menu du
-navigateur. L'application s'ouvre alors comme une app classique.
+navigateur. Une icône de sac à dos apparaît sur l'écran d'accueil et
+l'application se lance en plein écran, sans barre de navigateur.
+
+Une fois installée, elle fonctionne **hors connexion** : elle est mise en cache
+au premier lancement, ce qui permet de consulter sa liste en pleine montagne.
+Les mises à jour se téléchargent automatiquement dès qu'il y a du réseau.
 
 ## Licence
 
