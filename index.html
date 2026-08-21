@@ -32,6 +32,11 @@
 
         * { box-sizing: border-box; }
 
+        /* Une règle de classe comme « .hero { display: flex } » l'emporte sur
+           la règle par défaut du navigateur : sans ceci, l'attribut hidden
+           reste sans effet et l'entête du sac s'affiche dans la vue Nourriture. */
+        [hidden] { display: none !important; }
+
         html { background: var(--fond); }
 
         body {
@@ -52,7 +57,7 @@
         /* ---------- Entête ---------- */
         .entete-haut {
             display: flex; align-items: center; justify-content: space-between;
-            padding: 14px 0 16px;
+            padding: 18px 0 20px;
         }
         .entete-haut h1 {
             font-size: 24px; font-weight: 800; letter-spacing: -0.5px; margin: 0;
@@ -66,7 +71,7 @@
         .hero {
             background: linear-gradient(150deg, #16233a, #121722);
             border: 1px solid var(--bordure);
-            border-radius: 22px; padding: 18px;
+            border-radius: 22px; padding: 20px;
             display: flex; align-items: center; gap: 18px;
         }
         .anneau { position: relative; width: 80px; height: 80px; flex: none; }
@@ -84,7 +89,7 @@
         /* ---------- Barre collante ---------- */
         .collant {
             position: sticky; top: 0; z-index: 30;
-            margin: 0 -16px; padding: 14px 16px 12px;
+            margin: 0 -16px; padding: 18px 16px 14px;
             background: rgba(13, 15, 20, 0.93);
             -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
         }
@@ -98,7 +103,7 @@
         .recherche:focus { outline: none; border-color: var(--vert); }
 
         .segments {
-            display: flex; gap: 4px; margin-top: 10px; padding: 4px;
+            display: flex; gap: 4px; margin-top: 12px; padding: 4px;
             background: #14181f; border: 1px solid var(--bordure); border-radius: 13px;
         }
         .segments button {
@@ -110,10 +115,10 @@
         .segments button.actif { background: var(--surface-2); color: #fff; }
 
         /* ---------- Groupes et lignes ---------- */
-        .groupe { margin-top: 22px; }
+        .groupe { margin-top: 28px; }
         .groupe-titre {
             display: flex; align-items: center; gap: 9px;
-            margin: 0 2px 10px; cursor: pointer;
+            margin: 0 2px 12px; cursor: pointer;
         }
         .groupe-titre span { font-size: 14px; font-weight: 700; }
         .groupe-titre em {
@@ -129,7 +134,7 @@
         .ligne-hote { position: relative; overflow: hidden; }
         .ligne {
             display: flex; align-items: center; gap: 12px;
-            padding: 13px 14px; min-height: 52px;
+            padding: 15px 15px; min-height: 56px;
             border-bottom: 1px solid var(--bordure-fine);
             background: var(--surface); position: relative; z-index: 1;
             touch-action: pan-y; cursor: grab;
@@ -331,7 +336,7 @@
             color: var(--attenue); margin-top: 6px; letter-spacing: 0.3px;
         }
 
-        .reglages { display: flex; gap: 10px; margin: 14px 0 4px; }
+        .reglages { display: flex; gap: 12px; margin: 18px 0 4px; }
         .reglage {
             flex: 1; background: var(--surface); border: 1px solid var(--bordure);
             border-radius: 14px; padding: 10px 12px;
@@ -375,7 +380,7 @@
         .fabs {
             position: fixed; right: 20px; z-index: 40;
             bottom: calc(24px + env(safe-area-inset-bottom));
-            display: flex; flex-direction: column; gap: 24px; align-items: center;
+            display: flex; flex-direction: column; gap: 30px; align-items: center;
         }
         .fab-vue {
             width: 50px; height: 50px; border-radius: 50%; border: 1px solid var(--bordure);
@@ -864,6 +869,42 @@ function majHero(aPrendre, ranges, poidsSac, poidsRestant) {
    Actions sur les objets
    ========================================================================== */
 
+/* Remplace le symbole en tête d'un nom, ou l'ajoute s'il n'y en a pas.
+   « Corde 50 m » et « 🪢 Corde 50 m » donnent tous deux « 🧗 Corde 50 m ». */
+function prefixerSymbole(texte, emoji) {
+    const sansSymbole = texte.replace(/^\S+\s+/, function (debut) {
+        return /[\u0000-\u00ff]/.test(debut.trim()[0]) ? debut : '';
+    });
+    return (emoji + ' ' + sansSymbole).trim();
+}
+
+/* Feuille de saisie d'un nom, avec accès au sélecteur de symboles.
+   Le passage par le sélecteur conserve ce qui est déjà tapé. */
+function feuilleNom(titre, valeur, valider) {
+    fermerFeuille();
+    ouvrirFeuille(titre, corps => {
+        corps.innerHTML = '<label for="r-nom">Nom</label><input type="text" id="r-nom">';
+        const champ = corps.querySelector('#r-nom');
+        champ.value = valeur;
+
+        bouton(corps, '😀 Choisir un symbole', '', () => {
+            const enCours = champ.value;
+            choisirEmoji(
+                emoji => feuilleNom(titre, prefixerSymbole(enCours, emoji), valider),
+                () => feuilleNom(titre, enCours, valider));
+        });
+
+        bouton(corps, 'Enregistrer', 'principal', () => {
+            const nom = champ.value.trim();
+            if (!nom) { toast('Le nom ne peut pas être vide'); return; }
+            fermerFeuille();
+            valider(nom);
+        });
+
+        bouton(corps, 'Annuler', 'annuler', fermerFeuille);
+    });
+}
+
 function definirEtat(objet, etat) {
     if (etat === 'reserve') delete etats[objet];
     else etats[objet] = etat;
@@ -958,15 +999,14 @@ function rendreGlissable(ligne, fond, apercu, valider) {
 function menuObjet(objet, groupe) {
     ouvrirFeuille(objet, corps => {
         bouton(corps, '✏️ Renommer', '', () => {
-            fermerFeuille();
-            const nouveau = prompt('Nouveau nom :', objet);
-            if (!nouveau || !nouveau.trim() || nouveau.trim() === objet) return;
-            const nom = nouveau.trim();
+            feuilleNom('Renommer l\u2019équipement', objet, nom => {
+            if (nom === objet) return;
             const i = categories[groupe].indexOf(objet);
             if (i !== -1) categories[groupe][i] = nom;
             if (etats[objet]) { etats[nom] = etats[objet]; delete etats[objet]; }
             if (poids[objet]) { poids[nom] = poids[objet]; delete poids[objet]; }
             sauver(); afficher();
+            });
         });
 
         bouton(corps, '⚖️ ' + (poids[objet] ? 'Modifier le poids (' + formaterPoids(poids[objet]) + ')' : 'Indiquer le poids'), '', () => {
@@ -995,15 +1035,14 @@ function menuObjet(objet, groupe) {
 function menuGroupe(groupe) {
     ouvrirFeuille(groupe, corps => {
         bouton(corps, '✏️ Renommer le groupe', '', () => {
-            fermerFeuille();
-            const nouveau = prompt('Nouveau nom du groupe :', groupe);
-            if (!nouveau || !nouveau.trim() || nouveau.trim() === groupe) return;
-            const nom = nouveau.trim();
-            if (categories[nom]) { toast('Ce groupe existe déjà'); return; }
-            const remplace = {};
-            for (const cle in categories) remplace[cle === groupe ? nom : cle] = categories[cle];
-            categories = remplace;
-            sauver(); afficher();
+            feuilleNom('Renommer le groupe', groupe, nom => {
+                if (nom === groupe) return;
+                if (categories[nom]) { toast('Ce groupe existe déjà'); return; }
+                const remplace = {};
+                for (const cle in categories) remplace[cle === groupe ? nom : cle] = categories[cle];
+                categories = remplace;
+                sauver(); afficher();
+            });
         });
 
         bouton(corps, '🗑️ Supprimer le groupe', 'danger', () => {
@@ -1057,17 +1096,10 @@ function ajouterMateriel(etat) {
             };
         }
 
-        function prefixer(texte, emoji) {
-            const sansSymbole = texte.replace(/^\S+\s+/, function (debut) {
-                return /[\u0000-\u00ff]/.test(debut.trim()[0]) ? debut : '';
-            });
-            return (emoji + ' ' + sansSymbole).trim();
-        }
-
         bouton(corps, '😀 Choisir un symbole', '', () => {
             const enCours = memoriser();
             choisirEmoji(emoji => {
-                enCours.objet = prefixer(enCours.objet, emoji);
+                enCours.objet = prefixerSymbole(enCours.objet, emoji);
                 ajouterMateriel(enCours);
             }, () => ajouterMateriel(enCours));
         });
@@ -1099,7 +1131,7 @@ function ajouterMateriel(etat) {
         bouton(corps, '😀 Symbole du groupe', '', () => {
             const enCours = memoriser();
             choisirEmoji(emoji => {
-                enCours.nouveauGroupe = prefixer(enCours.nouveauGroupe, emoji);
+                enCours.nouveauGroupe = prefixerSymbole(enCours.nouveauGroupe, emoji);
                 ajouterMateriel(enCours);
             }, () => ajouterMateriel(enCours));
         });
@@ -1605,7 +1637,7 @@ function detailAliment(article, moment, position) {
                 k: +champKcal.value, q: +champQte.value
             };
             choisirEmoji(emoji => {
-                enCours.n = (emoji + ' ' + enCours.n.replace(/^\S+\s/, '')).trim();
+                enCours.n = prefixerSymbole(enCours.n, emoji);
                 detailAliment(enCours, select.value, position);
             }, () => detailAliment(enCours, select.value, position));
         });

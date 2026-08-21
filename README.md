@@ -44,7 +44,8 @@ menu **⋯**, qui propose celui de la vue en cours.
 
 - **Ajouter** un équipement ou créer un groupe : le bouton vert **+** en bas à droite.
 - **Renommer, peser ou supprimer** un équipement ou un groupe : appui long sur
-  téléphone, clic droit sur ordinateur.
+  téléphone, clic droit sur ordinateur. Le renommage donne accès au sélecteur
+  de symboles, qui remplace celui déjà en place sans toucher au reste du nom.
 - **Choisir un symbole** : dans la fenêtre d'ajout, deux boutons ouvrent un
   sélecteur de 302 symboles répartis en 20 thèmes, l'un pour l'équipement,
   l'autre pour le groupe. Un champ de recherche les filtre par nom français —
