@@ -232,18 +232,38 @@
             display: none; position: fixed; inset: 0; z-index: 200;
             background: rgba(0, 0, 0, 0.74);
             -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px);
-            align-items: center; justify-content: center; padding: 18px;
+            align-items: center; justify-content: center;
+            padding: calc(14px + env(safe-area-inset-top)) 14px calc(14px + env(safe-area-inset-bottom));
         }
         .voile-tuto.ouvert { display: flex; }
+
+        /* La carte ne dépasse jamais l'écran : le contenu défile, le bouton
+           reste visible en bas quelle que soit la hauteur du téléphone. */
         .tuto-carte {
             background: var(--surface); border: 1px solid var(--bordure);
             border-radius: 24px; width: 100%; max-width: 420px;
-            max-height: 86vh; overflow-y: auto;
-            padding: 24px 20px calc(20px + env(safe-area-inset-bottom));
+            max-height: 100%; overflow: hidden;
+            display: flex; flex-direction: column;
+            padding: 22px 18px 16px;
         }
+        .tuto-entete { flex: none; }
+        .tuto-corps {
+            flex: 1 1 auto; min-height: 0; overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 0 -18px; padding: 0 18px;
+        }
+        .tuto-pied { flex: none; padding-top: 10px; position: relative; }
+        /* Dégradé qui signale qu'il reste du contenu sous la ligne de flottaison. */
+        .tuto-carte.defilable .tuto-pied::before {
+            content: ""; position: absolute; left: 0; right: 0; bottom: 100%;
+            height: 28px; pointer-events: none;
+            background: linear-gradient(to top, var(--surface), rgba(23, 26, 33, 0));
+        }
+        .tuto-pied .act { margin-bottom: 0; }
+
         .tuto-carte h2 { font-size: 21px; font-weight: 800; text-align: center; margin: 0 0 5px; }
-        .tuto-intro { text-align: center; font-size: 13px; color: var(--attenue); margin: 0 0 22px; }
-        .etape { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 17px; }
+        .tuto-intro { text-align: center; font-size: 13px; color: var(--attenue); margin: 0 0 16px; }
+        .etape { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; }
         .etape .sym {
             width: 44px; height: 44px; border-radius: 13px; flex: none;
             display: flex; align-items: center; justify-content: center;
@@ -257,7 +277,20 @@
         .tuto-note {
             font-size: 12.5px; color: var(--attenue); line-height: 1.55;
             background: var(--surface-2); border: 1px solid var(--bordure);
-            border-radius: 12px; padding: 12px 14px; margin: 4px 0 18px;
+            border-radius: 12px; padding: 12px 14px; margin: 2px 0 2px;
+        }
+
+        /* Téléphones courts : on resserre plutôt que de forcer le défilement. */
+        @media (max-height: 730px) {
+            .tuto-carte { padding: 18px 16px 14px; border-radius: 20px; }
+            .tuto-carte h2 { font-size: 18.5px; }
+            .tuto-intro { font-size: 12px; margin-bottom: 15px; }
+            .etape { margin-bottom: 13px; gap: 12px; }
+            .etape .sym { width: 38px; height: 38px; border-radius: 11px; font-size: 17px; }
+            .etape strong { font-size: 14px; margin-bottom: 2px; }
+            .etape p { font-size: 12.5px; line-height: 1.45; }
+            .tuto-note { font-size: 11.5px; padding: 10px 12px; }
+            .tuto-pied .act { padding: 13px; font-size: 15px; }
         }
 
         .toast {
@@ -323,8 +356,12 @@
 
 <div class="voile-tuto" id="tuto">
     <div class="tuto-carte">
-        <h2>🎒 Comment ça marche</h2>
-        <p class="tuto-intro">Trois gestes, et c'est tout.</p>
+        <div class="tuto-entete">
+            <h2>🎒 Comment ça marche</h2>
+            <p class="tuto-intro">Trois gestes, et c'est tout.</p>
+        </div>
+
+        <div class="tuto-corps">
 
         <div class="etape">
             <div class="sym v">→</div>
@@ -381,7 +418,11 @@
             Sur ordinateur, glisse en maintenant le bouton de la souris.
         </div>
 
-        <button class="act principal" id="tuto-ok">C'est parti !</button>
+        </div><!-- /tuto-corps -->
+
+        <div class="tuto-pied">
+            <button class="act principal" id="tuto-ok">C'est parti !</button>
+        </div>
     </div>
 </div>
 
@@ -992,7 +1033,16 @@ document.getElementById('fichier-import').onchange = function () {
 const CLE_TUTO = 'tutoVuTrekV1';
 const voileTuto = document.getElementById('tuto');
 
-function ouvrirTuto() { voileTuto.classList.add('ouvert'); }
+function ouvrirTuto() {
+    voileTuto.classList.add('ouvert');
+    const carte = voileTuto.querySelector('.tuto-carte');
+    const corps = voileTuto.querySelector('.tuto-corps');
+    corps.scrollTop = 0;
+    /* Le dégradé n'apparaît que si le contenu dépasse réellement. La lecture de
+       scrollHeight force le calcul de la mise en page : pas besoin d'attendre
+       une frame, qui ne viendrait pas si l'application est en arrière-plan. */
+    carte.classList.toggle('defilable', corps.scrollHeight > corps.clientHeight + 1);
+}
 
 function fermerTuto() {
     voileTuto.classList.remove('ouvert');
