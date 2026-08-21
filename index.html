@@ -2,339 +2,807 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Mon sac à dos</title>
 
     <link rel="manifest" href="manifest.webmanifest">
-    <meta name="theme-color" content="#27ae60">
+    <meta name="theme-color" content="#0d0f14">
+    <meta name="color-scheme" content="dark">
     <link rel="icon" href="favicon.png" sizes="32x32">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Mon sac à dos">
+
     <style>
-        body { 
-            font-family: system-ui, -apple-system, sans-serif; 
-            margin: 0; 
-            padding: 10px; 
-            background-color: #f4f6f8; 
-            padding-bottom: 80px; 
+        :root {
+            --fond: #0d0f14;
+            --surface: #171a21;
+            --surface-2: #1f242e;
+            --bordure: #272c36;
+            --bordure-fine: #21262f;
+            --texte: #e8ecf1;
+            --attenue: #8b93a1;
+            --vert: #22c55e;
+            --vert-fonce: #15a34a;
+            --ambre: #f59e0b;
+            --rouge: #ef4444;
+        }
+
+        * { box-sizing: border-box; }
+
+        html { background: var(--fond); }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+            background: var(--fond);
+            color: var(--texte);
             -webkit-tap-highlight-color: transparent;
             -webkit-user-select: none;
             user-select: none;
+            -webkit-touch-callout: none;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left);
         }
-        h1 { color: #2c3e50; text-align: center; font-size: 1.5rem; margin-bottom: 15px; }
-        h2 { color: #34495e; font-size: 1.2rem; border-bottom: 2px solid #ecf0f1; padding-bottom: 5px; margin-top: 5px;}
-        
-        .section { 
-            background: white; 
-            border-radius: 12px; 
-            padding: 15px; 
-            margin-bottom: 20px; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
-        }
-        
-        #top-board { 
-            border: 2px dashed #bdc3c7; 
-            min-height: 80px; 
-            background-color: #fafbfc;
-        }
-        
-        .category-block { margin-bottom: 15px; }
-        .category-title { 
-            font-weight: bold; 
-            color: #7f8c8d;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            margin-top: 10px;
-            margin-bottom: 5px;
-            padding: 4px 0;
-            cursor: pointer;
-        }
-        
-        .item { 
-            display: inline-block; 
-            background: #ecf0f1; 
-            color: #2c3e50;
-            padding: 10px 15px; 
-            margin: 5px; 
-            border-radius: 20px; 
-            cursor: pointer; 
-            transition: all 0.2s ease; 
-            font-size: 14px; 
-            font-weight: 500;
-        }
-        
-        .item.missing { background: #e74c3c; color: white; transform: scale(1.02); }
-        .item.present { background: #2ecc71; color: white; }
-        
-        .admin-panel label { display: block; margin-top: 10px; font-size: 0.85rem; color: #34495e; font-weight: bold; }
-        .admin-panel input, .admin-panel select { 
-            width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #bdc3c7; border-radius: 8px; box-sizing: border-box; font-size: 14px; background: #fafbfc;
-        }
-        .btn { width: 100%; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 14px; }
-        .btn-primary { background: #3498db; color: white; }
-        .btn-danger { background: #c0392b; color: white; }
 
-        .action-sheet-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.4); z-index: 1000; justify-content: center; align-items: flex-end;
-        }
-        .action-sheet {
-            background: white; width: 100%; max-width: 500px; border-radius: 20px 20px 0 0;
-            padding: 20px; box-sizing: border-box; box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
-        }
-        .action-sheet-title { text-align: center; font-weight: bold; color: #7f8c8d; margin-bottom: 15px; font-size: 0.9rem; }
-        .action-btn {
-            width: 100%; padding: 15px; border: none; background: #f8f9fa; margin-bottom: 8px;
-            border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; color: #2c3e50;
-        }
-        .action-btn.danger { color: #e74c3c; background: #fdf2f2; }
-        .action-btn.cancel { background: #e2e8f0; margin-top: 5px; }
+        .appli { max-width: 560px; margin: 0 auto; padding: 0 16px; }
+        .appli > main { padding-bottom: calc(110px + env(safe-area-inset-bottom)); }
 
-        /* Style pour l'astuce en bas de page */
-        .footer-hint {
-            text-align: center;
-            font-size: 0.85rem;
-            color: #95a5a6;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            padding: 0 10px;
-            line-height: 1.4;
+        /* ---------- Entête ---------- */
+        .entete-haut {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 14px 0 16px;
         }
+        .entete-haut h1 {
+            font-size: 24px; font-weight: 800; letter-spacing: -0.5px; margin: 0;
+        }
+        .ico-btn {
+            width: 40px; height: 40px; border-radius: 12px; flex: none;
+            background: var(--surface); border: 1px solid var(--bordure);
+            color: var(--texte); font-size: 19px; line-height: 1; cursor: pointer;
+        }
+
+        .hero {
+            background: linear-gradient(150deg, #16233a, #121722);
+            border: 1px solid var(--bordure);
+            border-radius: 22px; padding: 18px;
+            display: flex; align-items: center; gap: 18px;
+        }
+        .anneau { position: relative; width: 80px; height: 80px; flex: none; }
+        .anneau .valeur {
+            position: absolute; inset: 0;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .anneau .valeur b { font-size: 21px; font-weight: 800; line-height: 1; }
+        .anneau .valeur small { font-size: 9.5px; color: var(--attenue); letter-spacing: 0.7px; margin-top: 3px; }
+        .hero-txt { min-width: 0; }
+        .hero-txt strong { display: block; font-size: 18px; font-weight: 800; letter-spacing: -0.3px; }
+        .hero-txt p { margin: 6px 0 0; font-size: 13px; color: var(--attenue); line-height: 1.5; }
+        .hero-txt .poids-sac { color: var(--vert); font-weight: 600; font-size: 13px; }
+
+        /* ---------- Barre collante ---------- */
+        .collant {
+            position: sticky; top: 0; z-index: 30;
+            margin: 0 -16px; padding: 14px 16px 12px;
+            background: rgba(13, 15, 20, 0.93);
+            -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+        }
+        .recherche {
+            width: 100%; padding: 12px 14px; font-size: 15px;
+            background: var(--surface); color: var(--texte);
+            border: 1px solid var(--bordure); border-radius: 13px;
+            font-family: inherit; -webkit-appearance: none;
+        }
+        .recherche::placeholder { color: var(--attenue); }
+        .recherche:focus { outline: none; border-color: var(--vert); }
+
+        .segments {
+            display: flex; gap: 4px; margin-top: 10px; padding: 4px;
+            background: #14181f; border: 1px solid var(--bordure); border-radius: 13px;
+        }
+        .segments button {
+            flex: 1; padding: 9px 2px; font-size: 12.5px; font-weight: 600;
+            background: none; border: none; color: var(--attenue);
+            border-radius: 10px; cursor: pointer; font-family: inherit;
+            white-space: nowrap;
+        }
+        .segments button.actif { background: var(--surface-2); color: #fff; }
+
+        /* ---------- Groupes et lignes ---------- */
+        .groupe { margin-top: 22px; }
+        .groupe-titre {
+            display: flex; align-items: center; gap: 9px;
+            margin: 0 2px 10px; cursor: pointer;
+        }
+        .groupe-titre span { font-size: 14px; font-weight: 700; }
+        .groupe-titre em {
+            font-style: normal; font-size: 11px; color: var(--attenue);
+            background: var(--surface); border: 1px solid var(--bordure);
+            padding: 2px 8px; border-radius: 99px;
+        }
+
+        .carte {
+            background: var(--surface); border: 1px solid var(--bordure);
+            border-radius: 16px; overflow: hidden;
+        }
+        .ligne {
+            display: flex; align-items: center; gap: 12px;
+            padding: 13px 14px; min-height: 52px;
+            border-bottom: 1px solid var(--bordure-fine); cursor: pointer;
+        }
+        .ligne:last-child { border-bottom: none; }
+        .ligne:active { background: var(--surface-2); }
+
+        .puce {
+            width: 23px; height: 23px; border-radius: 50%; flex: none;
+            border: 2px solid #3a414e; position: relative;
+        }
+        .ligne.a-prendre .puce { border-color: var(--ambre); background: rgba(245, 158, 11, 0.16); }
+        .ligne.range .puce { background: var(--vert); border-color: var(--vert); }
+        .ligne.range .puce::after {
+            content: ""; position: absolute; left: 6.5px; top: 3px;
+            width: 5px; height: 10px; border: solid var(--fond);
+            border-width: 0 2.5px 2.5px 0; transform: rotate(45deg);
+        }
+
+        .nom { flex: 1; font-size: 15.5px; font-weight: 500; min-width: 0; }
+        .ligne.range .nom { color: var(--attenue); }
+        .etiq {
+            font-size: 10px; font-weight: 700; letter-spacing: 0.4px;
+            padding: 3px 8px; border-radius: 6px; flex: none;
+            background: rgba(245, 158, 11, 0.16); color: var(--ambre);
+        }
+        .poids { font-size: 12px; color: var(--attenue); flex: none; font-variant-numeric: tabular-nums; }
+
+        .vide { text-align: center; color: var(--attenue); font-size: 14px; padding: 46px 20px; line-height: 1.6; }
+
+        /* ---------- Bouton flottant ---------- */
+        .fab {
+            position: fixed; right: 20px; z-index: 40;
+            bottom: calc(24px + env(safe-area-inset-bottom));
+            width: 58px; height: 58px; border-radius: 50%; border: none;
+            background: linear-gradient(145deg, var(--vert), var(--vert-fonce));
+            color: #062b13; font-size: 32px; font-weight: 300; cursor: pointer;
+            box-shadow: 0 10px 26px rgba(34, 197, 94, 0.42);
+        }
+
+        /* ---------- Feuilles ---------- */
+        .voile {
+            display: none; position: fixed; inset: 0; z-index: 100;
+            background: rgba(0, 0, 0, 0.62);
+            -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
+            justify-content: center; align-items: flex-end;
+        }
+        .voile.ouvert { display: flex; }
+        .feuille {
+            background: var(--surface); width: 100%; max-width: 560px;
+            border-radius: 24px 24px 0 0; border: 1px solid var(--bordure); border-bottom: none;
+            padding: 10px 18px calc(18px + env(safe-area-inset-bottom));
+            max-height: 88vh; overflow-y: auto;
+        }
+        .poignee { width: 42px; height: 4px; border-radius: 99px; background: #39404d; margin: 4px auto 14px; }
+        .feuille-titre {
+            text-align: center; font-size: 13px; font-weight: 600;
+            color: var(--attenue); margin-bottom: 14px; word-break: break-word;
+        }
+        .act {
+            display: block; width: 100%; padding: 15px; margin-bottom: 8px;
+            background: var(--surface-2); border: 1px solid var(--bordure);
+            border-radius: 13px; font-size: 16px; font-weight: 600;
+            color: var(--texte); cursor: pointer; font-family: inherit; text-align: center;
+        }
+        .act.danger { color: var(--rouge); }
+        .act.annuler { background: none; border-color: transparent; color: var(--attenue); margin-top: 4px; }
+
+        .feuille label {
+            display: block; margin: 16px 0 6px 2px;
+            font-size: 12px; font-weight: 700; color: var(--attenue);
+            letter-spacing: 0.5px; text-transform: uppercase;
+        }
+        .feuille input, .feuille select {
+            width: 100%; padding: 13px 14px; font-size: 15px; font-family: inherit;
+            background: var(--surface-2); color: var(--texte);
+            border: 1px solid var(--bordure); border-radius: 12px; -webkit-appearance: none;
+        }
+        .feuille input:focus, .feuille select:focus { outline: none; border-color: var(--vert); }
+        .principal {
+            background: linear-gradient(145deg, var(--vert), var(--vert-fonce));
+            color: #062b13; border: none; margin-top: 14px;
+        }
+        .separateur { height: 1px; background: var(--bordure); margin: 24px 0 4px; }
+
+        .toast {
+            position: fixed; left: 50%; transform: translateX(-50%);
+            bottom: calc(96px + env(safe-area-inset-bottom)); z-index: 200;
+            background: var(--surface-2); border: 1px solid var(--bordure);
+            color: var(--texte); font-size: 14px; font-weight: 600;
+            padding: 12px 20px; border-radius: 99px; box-shadow: 0 8px 24px rgba(0,0,0,.5);
+            opacity: 0; pointer-events: none; transition: opacity .22s ease;
+            max-width: 88vw; text-align: center;
+        }
+        .toast.visible { opacity: 1; }
     </style>
 </head>
 <body>
 
-    <h1>🎒 Mon Sac de Rando</h1>
-
-    <div id="top-board" class="section">
-        <h2>Dans le sac / À vérifier</h2>
-        <div id="active-container"></div>
-    </div>
-
-    <div id="catalogue" class="section">
-        <h2>Inventaire complet (Réserve)</h2>
-        <div id="catalogue-container"></div>
-    </div>
-
-    <div class="section admin-panel">
-        <h2>⚙️ Ajouter du Matériel</h2>
-        
-        <label for="new-cat-name">Nouveau groupe (ex: 🧗 Escalade)</label>
-        <input type="text" id="new-cat-name" placeholder="Nom du groupe + Émoji">
-        <button onclick="addCategory()" class="btn btn-primary">Créer le groupe</button>
-
-        <label for="select-cat">Dans quel groupe ?</label>
-        <select id="select-cat"></select>
-        
-        <label for="new-item-name">Nouvel équipement (ex: 🧗 Corde 50m)</label>
-        <input type="text" id="new-item-name" placeholder="Nom de l'objet + Émoji">
-        <button onclick="addItem()" class="btn btn-primary">Ajouter à la liste</button>
-
-        <hr style="border: 0; border-top: 1px solid #ecf0f1; margin: 20px 0;">
-        <button onclick="resetAll()" class="btn btn-danger">🔄 Réinitialiser l'application</button>
-    </div>
-
-    <div class="footer-hint">
-        💡 <b>Astuce :</b> Appui long (sur téléphone) ou Clic droit (sur ordinateur) sur un équipement ou le titre d'un groupe pour le renommer ou le supprimer.
-    </div>
-
-    <div id="action-sheet-menu" class="action-sheet-overlay" onclick="closeActionSheet()">
-        <div class="action-sheet" onclick="event.stopPropagation()">
-            <div id="sheet-title" class="action-sheet-title">Options</div>
-            <button id="btn-rename" class="action-btn">✏️ Renommer</button>
-            <button id="btn-delete" class="action-btn danger">🗑️ Supprimer</button>
-            <button onclick="closeActionSheet()" class="action-btn cancel">Annuler</button>
+<div class="appli">
+    <header>
+        <div class="entete-haut">
+            <h1>Mon sac à dos</h1>
+            <button class="ico-btn" id="btn-menu" aria-label="Menu">⋯</button>
         </div>
+
+        <div class="hero">
+            <div class="anneau">
+                <svg width="80" height="80" viewBox="0 0 80 80">
+                    <circle cx="40" cy="40" r="34" fill="none" stroke="#1e2839" stroke-width="8"></circle>
+                    <circle id="arc" cx="40" cy="40" r="34" fill="none" stroke="#22c55e" stroke-width="8"
+                            stroke-linecap="round" stroke-dasharray="213.6" stroke-dashoffset="213.6"
+                            transform="rotate(-90 40 40)" style="transition: stroke-dashoffset .45s ease"></circle>
+                </svg>
+                <div class="valeur"><b id="pourcent">0%</b><small>PRÊT</small></div>
+            </div>
+            <div class="hero-txt">
+                <strong id="hero-titre">Bonne rando !</strong>
+                <p id="hero-detail"></p>
+            </div>
+        </div>
+
+        <div class="collant">
+            <input type="search" class="recherche" id="recherche" placeholder="Rechercher un équipement…" autocomplete="off">
+            <div class="segments" id="segments">
+                <button data-f="tout" class="actif">Tout</button>
+                <button data-f="a-prendre">À prendre</button>
+                <button data-f="range">Rangé</button>
+                <button data-f="reserve">Réserve</button>
+            </div>
+        </div>
+    </header>
+
+    <main id="liste"></main>
+</div>
+
+<button class="fab" id="fab" aria-label="Ajouter">+</button>
+
+<div class="voile" id="voile">
+    <div class="feuille" id="feuille">
+        <div class="poignee"></div>
+        <div class="feuille-titre" id="feuille-titre"></div>
+        <div id="feuille-corps"></div>
     </div>
+</div>
 
-    <script>
-        const defaultCategories = {
-            "🏠 Abri et couchage": ["🏕️ Tente", "🛌️ Sac de couchage", "🛏️ Tapis de sol", "🛏️ Sac à viande", "🛏️ Appui tête", "🌟 Bâche"],
-            "🍽️ Cuisine et nourriture": ["🏺 Réchaud à gaz + cartouche", "🍴 Éponge et liquide vaisselle", "🍵 Mug / gobelet", "🍴 Couverts", "🍲 Popote", "🍲 Nourriture", "🌾 Barre de céréale", "💧 Filtre à eau + 2L d'eau", "💧 2 grandes gourdes"],
-            "🔦 Éclairage et sécurité": ["🔦 Lampe frontale", "🔦 Lampe portative", "🔋 Piles/batterie", "📢 Sifflet de survie", "🔪 Couteau multifonction", "🧭 Boussole / GPS"],
-            "🧼 Vêtements et protection": ["🧥 Veste imperméable", "🧣 Bonnet et gants", "👕 Vêtements de rechange", "👕 Vêtements chauds (soir)", "👖 Pantalon léger / short", "👖 Pantalon long", "👟 Chaussures de rando", "🧤 Lunettes de soleil", "☀️ Crème solaire", "🧢 Casquette"],
-            "🧼 Produits d'hygiène et secours": ["🧽 Serviette microfibre", "🚿 Gel douche", "🦷 Brosse à dents", "🦷 Dentifrice", "🧴Désinfectant mains", "🧻 Papier toilette", "🧺 Sac poubelle", "💊 Trousse de secours"]
-        };
+<input type="file" id="fichier-import" accept="application/json,.json" style="display:none">
+<div class="toast" id="toast"></div>
 
-        let categories = JSON.parse(localStorage.getItem('structTrekV3')) || defaultCategories;
-        let itemStates = JSON.parse(localStorage.getItem('stateTrekV3')) || {};
+<script>
+/* ==========================================================================
+   Mon sac à dos — données
+   ========================================================================== */
 
-        let currentTargetType = null;
-        let currentTargetKey = null;
-        let currentTargetParent = null;
+const categoriesParDefaut = {
+    "🏠 Abri et couchage": ["🏕️ Tente", "🛌️ Sac de couchage", "🛏️ Tapis de sol", "🛏️ Sac à viande", "🛏️ Appui tête", "🌟 Bâche"],
+    "🍽️ Cuisine et nourriture": ["🏺 Réchaud à gaz + cartouche", "🍴 Éponge et liquide vaisselle", "🍵 Mug / gobelet", "🍴 Couverts", "🍲 Popote", "🍲 Nourriture", "🌾 Barre de céréale", "💧 Filtre à eau + 2L d'eau", "💧 2 grandes gourdes"],
+    "🔦 Éclairage et sécurité": ["🔦 Lampe frontale", "🔦 Lampe portative", "🔋 Piles/batterie", "📢 Sifflet de survie", "🔪 Couteau multifonction", "🧭 Boussole / GPS"],
+    "🧼 Vêtements et protection": ["🧥 Veste imperméable", "🧣 Bonnet et gants", "👕 Vêtements de rechange", "👕 Vêtements chauds (soir)", "👖 Pantalon léger / short", "👖 Pantalon long", "👟 Chaussures de rando", "🧤 Lunettes de soleil", "☀️ Crème solaire", "🧢 Casquette"],
+    "🧼 Produits d'hygiène et secours": ["🧽 Serviette microfibre", "🚿 Gel douche", "🦷 Brosse à dents", "🦷 Dentifrice", "🧴Désinfectant mains", "🧻 Papier toilette", "🧺 Sac poubelle", "💊 Trousse de secours"]
+};
 
-        function render() {
-            const catContainer = document.getElementById('catalogue-container');
-            const activeContainer = document.getElementById('active-container');
-            const selectCat = document.getElementById('select-cat');
+/* Les deux premières clés sont celles des versions précédentes : l'inventaire
+   personnalisé et les coches existantes sont donc repris tels quels.
+   « poidsTrekV3 » est nouvelle et démarre vide. */
+let categories = lire('structTrekV3', categoriesParDefaut);
+let etats      = lire('stateTrekV3', {});
+let poids      = lire('poidsTrekV3', {});
 
-            catContainer.innerHTML = '';
-            activeContainer.innerHTML = '';
-            selectCat.innerHTML = '';
+/* Les versions precedentes nommaient les etats « missing » et « present ».
+   On les convertit une fois pour toutes, et on ecarte toute valeur inconnue,
+   afin que les coches deja posees soient reprises sans perte. */
+(function migrerEtats() {
+    const correspondance = { missing: 'a-prendre', present: 'range' };
+    const valides = ['a-prendre', 'range'];
+    let modifie = false;
+    for (const objet in etats) {
+        const valeur = etats[objet];
+        if (correspondance[valeur]) { etats[objet] = correspondance[valeur]; modifie = true; }
+        else if (valides.indexOf(valeur) === -1) { delete etats[objet]; modifie = true; }
+    }
+    if (modifie) sauver();
+})();
 
-            for (let group in categories) {
-                let opt = document.createElement('option');
-                opt.value = group; opt.innerText = group;
-                selectCat.appendChild(opt);
+function lire(cle, defaut) {
+    try {
+        const brut = localStorage.getItem(cle);
+        return brut ? JSON.parse(brut) : JSON.parse(JSON.stringify(defaut));
+    } catch (e) {
+        return JSON.parse(JSON.stringify(defaut));
+    }
+}
 
-                let reserveBlock = document.createElement('div');
-                reserveBlock.className = 'category-block';
-                
-                let reserveTitle = document.createElement('div');
-                reserveTitle.className = 'category-title';
-                reserveTitle.innerText = group;
-                reserveTitle.oncontextmenu = (e) => triggerLongPress(e, 'group', group);
-                reserveBlock.appendChild(reserveTitle);
+function sauver() {
+    localStorage.setItem('structTrekV3', JSON.stringify(categories));
+    localStorage.setItem('stateTrekV3', JSON.stringify(etats));
+    localStorage.setItem('poidsTrekV3', JSON.stringify(poids));
+}
 
-                let activeBlock = document.createElement('div');
-                activeBlock.className = 'category-block';
-                
-                let activeTitle = document.createElement('div');
-                activeTitle.className = 'category-title';
-                activeTitle.innerText = group;
-                activeTitle.oncontextmenu = (e) => triggerLongPress(e, 'group', group);
-                activeBlock.appendChild(activeTitle);
+/* ==========================================================================
+   Utilitaires
+   ========================================================================== */
 
-                let hasActiveItems = false;
-                let hasReserveItems = false;
+let filtre = 'tout';
+let recherche = '';
 
-                categories[group].forEach(item => {
-                    let btn = document.createElement('div');
-                    btn.className = 'item';
-                    btn.innerText = item;
-                    
-                    btn.onclick = () => handleItemClick(item, group);
-                    btn.oncontextmenu = (e) => triggerLongPress(e, 'item', item, group);
+const sansAccent = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
-                    if (itemStates[item] === 'missing') {
-                        btn.classList.add('missing');
-                        activeBlock.appendChild(btn);
-                        hasActiveItems = true;
-                    } else if (itemStates[item] === 'present') {
-                        btn.classList.add('present');
-                        activeBlock.appendChild(btn);
-                        hasActiveItems = true;
-                    } else {
-                        reserveBlock.appendChild(btn);
-                        hasReserveItems = true;
-                    }
-                });
+function formaterPoids(grammes) {
+    if (!grammes) return '';
+    if (grammes >= 1000) {
+        const kg = grammes / 1000;
+        return (Math.round(kg * 10) / 10).toString().replace('.', ',') + ' kg';
+    }
+    return grammes + ' g';
+}
 
-                if (hasReserveItems) catContainer.appendChild(reserveBlock);
-                if (hasActiveItems) activeContainer.appendChild(activeBlock);
+function vibrer(duree) {
+    if (navigator.vibrate) { try { navigator.vibrate(duree); } catch (e) {} }
+}
+
+let minuteurToast = null;
+function toast(message) {
+    const t = document.getElementById('toast');
+    t.textContent = message;
+    t.classList.add('visible');
+    clearTimeout(minuteurToast);
+    minuteurToast = setTimeout(() => t.classList.remove('visible'), 2600);
+}
+
+/* ==========================================================================
+   Appui long — remplace oncontextmenu, qui ne fonctionne pas sur iPhone
+   ========================================================================== */
+
+function appuiLong(element, rappel) {
+    let minuteur = null;
+    let declenche = false;
+
+    const demarrer = () => {
+        declenche = false;
+        minuteur = setTimeout(() => {
+            minuteur = null;
+            declenche = true;
+            vibrer(18);
+            rappel();
+        }, 480);
+    };
+    const annuler = () => { clearTimeout(minuteur); minuteur = null; };
+
+    element.addEventListener('touchstart', demarrer, { passive: true });
+    element.addEventListener('touchmove', annuler, { passive: true });
+    element.addEventListener('touchcancel', annuler, { passive: true });
+    element.addEventListener('touchend', e => {
+        annuler();
+        /* L'appui long a déjà agi : on empêche le clic simulé qui suivrait. */
+        if (declenche) e.preventDefault();
+    });
+
+    /* Clic droit sur ordinateur. Le garde-fou d'ouverture évite le doublon
+       sur Android, où l'appui long déclenche aussi contextmenu. */
+    element.addEventListener('contextmenu', e => { e.preventDefault(); rappel(); });
+}
+
+/* ==========================================================================
+   Feuilles d'action
+   ========================================================================== */
+
+const voile = document.getElementById('voile');
+
+function ouvrirFeuille(titre, construire) {
+    if (voile.classList.contains('ouvert')) return;   /* garde-fou anti-doublon */
+    document.getElementById('feuille-titre').textContent = titre;
+    const corps = document.getElementById('feuille-corps');
+    corps.innerHTML = '';
+    construire(corps);
+    voile.classList.add('ouvert');
+}
+
+function fermerFeuille() { voile.classList.remove('ouvert'); }
+
+voile.addEventListener('click', e => { if (e.target === voile) fermerFeuille(); });
+
+function bouton(parent, libelle, classe, action) {
+    const b = document.createElement('button');
+    b.className = 'act ' + (classe || '');
+    b.textContent = libelle;
+    b.onclick = action;
+    parent.appendChild(b);
+    return b;
+}
+
+/* ==========================================================================
+   Affichage
+   ========================================================================== */
+
+function etatDe(objet) { return etats[objet] || 'reserve'; }
+
+function visible(objet, groupe) {
+    /* Une recherche qui vise un groupe (« cuisine ») affiche tout son contenu. */
+    if (recherche) {
+        const dansObjet = sansAccent(objet).includes(recherche);
+        const dansGroupe = sansAccent(groupe).includes(recherche);
+        if (!dansObjet && !dansGroupe) return false;
+    }
+    if (filtre === 'tout') return true;
+    return etatDe(objet) === filtre;
+}
+
+function afficher() {
+    const liste = document.getElementById('liste');
+    liste.innerHTML = '';
+
+    let aPrendre = 0, ranges = 0, poidsSac = 0, poidsRestant = 0, affiches = 0;
+
+    for (const groupe in categories) {
+        const objets = categories[groupe];
+
+        objets.forEach(objet => {
+            const etat = etatDe(objet);
+            const g = poids[objet] || 0;
+            if (etat === 'range') { ranges++; poidsSac += g; }
+            else if (etat === 'a-prendre') { aPrendre++; poidsRestant += g; }
+        });
+
+        const retenus = objets.filter(o => visible(o, groupe));
+        if (retenus.length === 0) continue;
+        affiches += retenus.length;
+
+        const bloc = document.createElement('div');
+        bloc.className = 'groupe';
+
+        const titre = document.createElement('div');
+        titre.className = 'groupe-titre';
+        const nomGroupe = document.createElement('span');
+        nomGroupe.textContent = groupe;
+        const compteur = document.createElement('em');
+        compteur.textContent = objets.filter(o => etatDe(o) === 'range').length + '/' + objets.length;
+        titre.appendChild(nomGroupe);
+        titre.appendChild(compteur);
+        appuiLong(titre, () => menuGroupe(groupe));
+        bloc.appendChild(titre);
+
+        const carte = document.createElement('div');
+        carte.className = 'carte';
+
+        retenus.forEach(objet => {
+            const etat = etatDe(objet);
+            const ligne = document.createElement('div');
+            ligne.className = 'ligne ' + etat;
+
+            const puce = document.createElement('div');
+            puce.className = 'puce';
+            ligne.appendChild(puce);
+
+            const nom = document.createElement('div');
+            nom.className = 'nom';
+            nom.textContent = objet;
+            ligne.appendChild(nom);
+
+            if (etat === 'a-prendre') {
+                const etiq = document.createElement('div');
+                etiq.className = 'etiq';
+                etiq.textContent = 'À PRENDRE';
+                ligne.appendChild(etiq);
             }
-        }
 
-        function handleItemClick(item, group) {
-            if (!itemStates[item]) {
-                itemStates[item] = 'missing';
-            } else if (itemStates[item] === 'missing') {
-                itemStates[item] = 'present';
-            } else {
-                delete itemStates[item];
+            if (poids[objet]) {
+                const p = document.createElement('div');
+                p.className = 'poids';
+                p.textContent = formaterPoids(poids[objet]);
+                ligne.appendChild(p);
             }
-            save();
-            render();
+
+            ligne.onclick = () => basculer(objet);
+            appuiLong(ligne, () => menuObjet(objet, groupe));
+            carte.appendChild(ligne);
+        });
+
+        bloc.appendChild(carte);
+        liste.appendChild(bloc);
+    }
+
+    if (affiches === 0) {
+        const vide = document.createElement('div');
+        vide.className = 'vide';
+        vide.textContent = recherche
+            ? 'Aucun équipement ne correspond à cette recherche.'
+            : 'Rien dans cette catégorie pour le moment.';
+        liste.appendChild(vide);
+    }
+
+    majHero(aPrendre, ranges, poidsSac, poidsRestant);
+}
+
+function majHero(aPrendre, ranges, poidsSac, poidsRestant) {
+    const selectionnes = aPrendre + ranges;
+    const ratio = selectionnes ? ranges / selectionnes : 0;
+
+    const CIRCONFERENCE = 213.6;
+    document.getElementById('arc').setAttribute('stroke-dashoffset', CIRCONFERENCE * (1 - ratio));
+    document.getElementById('pourcent').textContent = Math.round(ratio * 100) + '%';
+
+    const titre = document.getElementById('hero-titre');
+    const detail = document.getElementById('hero-detail');
+
+    if (selectionnes === 0) {
+        titre.textContent = 'Prépare ta rando';
+        detail.innerHTML = 'Touche un équipement pour l\'ajouter à ta liste.';
+        return;
+    }
+
+    titre.textContent = ranges === selectionnes ? 'Sac bouclé !' : 'Bonne rando !';
+
+    let texte = ranges + ' rangé' + (ranges > 1 ? 's' : '') +
+                ' sur ' + selectionnes + '<br>' +
+                (aPrendre === 0 ? 'Plus rien à trouver' : aPrendre + ' encore à trouver');
+
+    if (poidsSac || poidsRestant) {
+        texte += '<br><span class="poids-sac">Sac : ' + (formaterPoids(poidsSac) || '0 g');
+        if (poidsRestant) texte += ' (+' + formaterPoids(poidsRestant) + ')';
+        texte += '</span>';
+    }
+    detail.innerHTML = texte;
+}
+
+/* ==========================================================================
+   Actions sur les objets
+   ========================================================================== */
+
+function basculer(objet) {
+    const etat = etatDe(objet);
+    if (etat === 'reserve') { etats[objet] = 'a-prendre'; vibrer(10); }
+    else if (etat === 'a-prendre') { etats[objet] = 'range'; vibrer([10, 40, 14]); }
+    else { delete etats[objet]; vibrer(8); }
+    sauver();
+    afficher();
+}
+
+function menuObjet(objet, groupe) {
+    ouvrirFeuille(objet, corps => {
+        bouton(corps, '✏️ Renommer', '', () => {
+            fermerFeuille();
+            const nouveau = prompt('Nouveau nom :', objet);
+            if (!nouveau || !nouveau.trim() || nouveau.trim() === objet) return;
+            const nom = nouveau.trim();
+            const i = categories[groupe].indexOf(objet);
+            if (i !== -1) categories[groupe][i] = nom;
+            if (etats[objet]) { etats[nom] = etats[objet]; delete etats[objet]; }
+            if (poids[objet]) { poids[nom] = poids[objet]; delete poids[objet]; }
+            sauver(); afficher();
+        });
+
+        bouton(corps, '⚖️ ' + (poids[objet] ? 'Modifier le poids (' + formaterPoids(poids[objet]) + ')' : 'Indiquer le poids'), '', () => {
+            fermerFeuille();
+            const saisie = prompt('Poids en grammes (laisser vide pour retirer) :', poids[objet] || '');
+            if (saisie === null) return;
+            const valeur = parseInt(saisie.replace(',', '.'), 10);
+            if (!saisie.trim() || isNaN(valeur) || valeur <= 0) delete poids[objet];
+            else poids[objet] = valeur;
+            sauver(); afficher();
+        });
+
+        bouton(corps, '🗑️ Supprimer', 'danger', () => {
+            fermerFeuille();
+            if (!confirm('Supprimer « ' + objet + ' » ?')) return;
+            categories[groupe] = categories[groupe].filter(o => o !== objet);
+            delete etats[objet];
+            delete poids[objet];
+            sauver(); afficher();
+        });
+
+        bouton(corps, 'Annuler', 'annuler', fermerFeuille);
+    });
+}
+
+function menuGroupe(groupe) {
+    ouvrirFeuille(groupe, corps => {
+        bouton(corps, '✏️ Renommer le groupe', '', () => {
+            fermerFeuille();
+            const nouveau = prompt('Nouveau nom du groupe :', groupe);
+            if (!nouveau || !nouveau.trim() || nouveau.trim() === groupe) return;
+            const nom = nouveau.trim();
+            if (categories[nom]) { toast('Ce groupe existe déjà'); return; }
+            const remplace = {};
+            for (const cle in categories) remplace[cle === groupe ? nom : cle] = categories[cle];
+            categories = remplace;
+            sauver(); afficher();
+        });
+
+        bouton(corps, '🗑️ Supprimer le groupe', 'danger', () => {
+            fermerFeuille();
+            if (!confirm('Supprimer « ' + groupe +' » et tout son contenu ?')) return;
+            categories[groupe].forEach(o => { delete etats[o]; delete poids[o]; });
+            delete categories[groupe];
+            sauver(); afficher();
+        });
+
+        bouton(corps, 'Annuler', 'annuler', fermerFeuille);
+    });
+}
+
+/* ==========================================================================
+   Ajout de matériel
+   ========================================================================== */
+
+document.getElementById('fab').onclick = () => {
+    ouvrirFeuille('Ajouter du matériel', corps => {
+        corps.innerHTML =
+            '<label for="f-objet">Nouvel équipement</label>' +
+            '<input type="text" id="f-objet" placeholder="🧗 Corde 50 m">' +
+            '<label for="f-groupe">Dans quel groupe ?</label>' +
+            '<select id="f-groupe"></select>' +
+            '<label for="f-poids">Poids en grammes (facultatif)</label>' +
+            '<input type="number" id="f-poids" inputmode="numeric" placeholder="1200">';
+
+        const select = corps.querySelector('#f-groupe');
+        for (const groupe in categories) {
+            const opt = document.createElement('option');
+            opt.value = groupe; opt.textContent = groupe;
+            select.appendChild(opt);
         }
 
-        function triggerLongPress(e, type, key, parentGroup = null) {
-            e.preventDefault();
-            currentTargetType = type;
-            currentTargetKey = key;
-            currentTargetParent = parentGroup;
+        bouton(corps, 'Ajouter à la liste', 'principal', () => {
+            const nom = corps.querySelector('#f-objet').value.trim();
+            const groupe = select.value;
+            const p = parseInt(corps.querySelector('#f-poids').value, 10);
+            if (!nom) { toast('Donne un nom à l\'équipement'); return; }
+            if (!groupe) { toast('Crée d\'abord un groupe'); return; }
+            if (categories[groupe].includes(nom)) { toast('Cet équipement existe déjà'); return; }
+            categories[groupe].push(nom);
+            if (!isNaN(p) && p > 0) poids[nom] = p;
+            sauver(); afficher(); fermerFeuille();
+            toast('« ' + nom + ' » ajouté');
+        });
 
-            document.getElementById('sheet-title').innerText = `Options pour : ${key}`;
-            document.getElementById('action-sheet-menu').style.display = 'flex';
+        const sep = document.createElement('div');
+        sep.className = 'separateur';
+        corps.appendChild(sep);
+
+        const bloc = document.createElement('div');
+        bloc.innerHTML =
+            '<label for="f-nouveau-groupe">Nouveau groupe</label>' +
+            '<input type="text" id="f-nouveau-groupe" placeholder="🧗 Escalade">';
+        corps.appendChild(bloc);
+
+        bouton(corps, 'Créer le groupe', '', () => {
+            const nom = bloc.querySelector('#f-nouveau-groupe').value.trim();
+            if (!nom) { toast('Donne un nom au groupe'); return; }
+            if (categories[nom]) { toast('Ce groupe existe déjà'); return; }
+            categories[nom] = [];
+            sauver(); afficher(); fermerFeuille();
+            toast('Groupe « ' + nom + ' » créé');
+        });
+
+        bouton(corps, 'Annuler', 'annuler', fermerFeuille);
+    });
+};
+
+/* ==========================================================================
+   Menu général
+   ========================================================================== */
+
+document.getElementById('btn-menu').onclick = () => {
+    ouvrirFeuille('Options', corps => {
+        bouton(corps, '🥾 Nouvelle rando', '', () => {
+            fermerFeuille();
+            const coches = Object.keys(etats).length;
+            if (!coches) { toast('Aucune coche à effacer'); return; }
+            if (!confirm('Décocher les ' + coches + ' équipements ?\n\nTon inventaire et tes poids sont conservés.')) return;
+            etats = {};
+            sauver(); afficher();
+            toast('Prêt pour une nouvelle sortie');
+        });
+
+        bouton(corps, '💾 Exporter ma liste', '', () => { fermerFeuille(); exporter(); });
+        bouton(corps, '📂 Importer une liste', '', () => {
+            fermerFeuille();
+            document.getElementById('fichier-import').click();
+        });
+
+        bouton(corps, '⚠️ Réinitialiser l\'application', 'danger', () => {
+            fermerFeuille();
+            if (!confirm('Tout effacer et revenir à l\'inventaire d\'origine ?\n\nTes ajouts et tes poids seront perdus.')) return;
+            categories = JSON.parse(JSON.stringify(categoriesParDefaut));
+            etats = {}; poids = {};
+            sauver(); afficher();
+            toast('Application réinitialisée');
+        });
+
+        bouton(corps, 'Annuler', 'annuler', fermerFeuille);
+    });
+};
+
+/* ==========================================================================
+   Export / import
+   ========================================================================== */
+
+function exporter() {
+    const donnees = {
+        application: 'Mon sac à dos',
+        version: 1,
+        date: new Date().toISOString(),
+        categories: categories,
+        etats: etats,
+        poids: poids
+    };
+    const blob = new Blob([JSON.stringify(donnees, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'mon-sac-a-dos-' + new Date().toISOString().slice(0, 10) + '.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    toast('Liste exportée');
+}
+
+document.getElementById('fichier-import').onchange = function () {
+    const fichier = this.files && this.files[0];
+    this.value = '';
+    if (!fichier) return;
+
+    const lecteur = new FileReader();
+    lecteur.onload = e => {
+        let donnees;
+        try {
+            donnees = JSON.parse(e.target.result);
+        } catch (err) {
+            toast('Fichier illisible');
+            return;
         }
-
-        function closeActionSheet() {
-            document.getElementById('action-sheet-menu').style.display = 'none';
+        if (!donnees || typeof donnees.categories !== 'object' || Array.isArray(donnees.categories)) {
+            toast('Ce fichier n\'est pas une liste valide');
+            return;
         }
+        const nb = Object.values(donnees.categories).reduce((t, v) => t + (Array.isArray(v) ? v.length : 0), 0);
+        if (!confirm('Importer ' + nb + ' équipements ?\n\nTa liste actuelle sera remplacée.')) return;
 
-        document.getElementById('btn-rename').onclick = () => {
-            closeActionSheet();
-            let newName = prompt(`Entrez le nouveau nom pour "${currentTargetKey}" :`, currentTargetKey);
-            if (newName && newName.trim() !== "") {
-                newName = newName.trim();
-                if (currentTargetType === 'group') {
-                    categories[newName] = categories[currentTargetKey];
-                    delete categories[currentTargetKey];
-                } else if (currentTargetType === 'item') {
-                    let idx = categories[currentTargetParent].indexOf(currentTargetKey);
-                    if (idx !== -1) {
-                        categories[currentTargetParent][idx] = newName;
-                    }
-                    if (itemStates[currentTargetKey]) {
-                        itemStates[newName] = itemStates[currentTargetKey];
-                        delete itemStates[currentTargetKey];
-                    }
-                }
-                save();
-                render();
-            }
-        };
+        categories = donnees.categories;
+        etats = (donnees.etats && typeof donnees.etats === 'object') ? donnees.etats : {};
+        poids = (donnees.poids && typeof donnees.poids === 'object') ? donnees.poids : {};
+        sauver(); afficher();
+        toast('Liste importée');
+    };
+    lecteur.readAsText(fichier);
+};
 
-        document.getElementById('btn-delete').onclick = () => {
-            closeActionSheet();
-            if (currentTargetType === 'group') {
-                if (confirm(`Voulez-vous supprimer définitivement le groupe "${currentTargetKey}" et TOUT son contenu ?`)) {
-                    categories[currentTargetKey].forEach(item => delete itemStates[item]);
-                    delete categories[currentTargetKey];
-                }
-            } else if (currentTargetType === 'item') {
-                categories[currentTargetParent] = categories[currentTargetParent].filter(i => i !== currentTargetKey);
-                delete itemStates[currentTargetKey];
-            }
-            save();
-            render();
-        }
+/* ==========================================================================
+   Recherche et filtres
+   ========================================================================== */
 
-        function addCategory() {
-            let input = document.getElementById('new-cat-name');
-            let name = input.value.trim();
-            if (name && !categories[name]) {
-                categories[name] = [];
-                input.value = '';
-                save(); render();
-            }
-        }
+document.getElementById('recherche').addEventListener('input', function () {
+    recherche = sansAccent(this.value.trim());
+    afficher();
+});
 
-        function addItem() {
-            let cat = document.getElementById('select-cat').value;
-            let input = document.getElementById('new-item-name');
-            let name = input.value.trim();
-            if (cat && name && !categories[cat].includes(name)) {
-                categories[cat].push(name);
-                input.value = '';
-                save(); render();
-            }
-        }
+document.getElementById('segments').addEventListener('click', e => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    filtre = b.dataset.f;
+    [].forEach.call(document.querySelectorAll('#segments button'), x => x.classList.remove('actif'));
+    b.classList.add('actif');
+    afficher();
+});
 
-        function resetAll() {
-            if (confirm("Effacer toutes les modifications et revenir à la configuration d'usine ?")) {
-                localStorage.clear();
-                categories = JSON.parse(JSON.stringify(defaultCategories));
-                itemStates = {};
-                save(); render();
-            }
-        }
+afficher();
+</script>
 
-        function save() {
-            localStorage.setItem('structTrekV3', JSON.stringify(categories));
-            localStorage.setItem('stateTrekV3', JSON.stringify(itemStates));
-        }
-
-        render();
-    </script>
-
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
-        }
-    </script>
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js').catch(() => {});
+        });
+    }
+</script>
 
 </body>
 </html>
