@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mon sac à dos</title>
+    <style>
+        body { 
+            font-family: system-ui, -apple-system, sans-serif; 
+            margin: 0; 
+            padding: 10px; 
+            background-color: #f4f6f8; 
+            padding-bottom: 80px; 
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        h1 { color: #2c3e50; text-align: center; font-size: 1.5rem; margin-bottom: 15px; }
+        h2 { color: #34495e; font-size: 1.2rem; border-bottom: 2px solid #ecf0f1; padding-bottom: 5px; margin-top: 5px;}
+        
+        .section { 
+            background: white; 
+            border-radius: 12px; 
+            padding: 15px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+        }
+        
+        #top-board { 
+            border: 2px dashed #bdc3c7; 
+            min-height: 80px; 
+            background-color: #fafbfc;
+        }
+        
+        .category-block { margin-bottom: 15px; }
+        .category-title { 
+            font-weight: bold; 
+            color: #7f8c8d;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            padding: 4px 0;
+            cursor: pointer;
+        }
+        
+        .item { 
+            display: inline-block; 
+            background: #ecf0f1; 
+            color: #2c3e50;
+            padding: 10px 15px; 
+            margin: 5px; 
+            border-radius: 20px; 
+            cursor: pointer; 
+            transition: all 0.2s ease; 
+            font-size: 14px; 
+            font-weight: 500;
+        }
+        
+        .item.missing { background: #e74c3c; color: white; transform: scale(1.02); }
+        .item.present { background: #2ecc71; color: white; }
+        
+        .admin-panel label { display: block; margin-top: 10px; font-size: 0.85rem; color: #34495e; font-weight: bold; }
+        .admin-panel input, .admin-panel select { 
+            width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #bdc3c7; border-radius: 8px; box-sizing: border-box; font-size: 14px; background: #fafbfc;
+        }
+        .btn { width: 100%; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 14px; }
+        .btn-primary { background: #3498db; color: white; }
+        .btn-danger { background: #c0392b; color: white; }
+
+        .action-sheet-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4); z-index: 1000; justify-content: center; align-items: flex-end;
+        }
+        .action-sheet {
+            background: white; width: 100%; max-width: 500px; border-radius: 20px 20px 0 0;
+            padding: 20px; box-sizing: border-box; box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+        }
+        .action-sheet-title { text-align: center; font-weight: bold; color: #7f8c8d; margin-bottom: 15px; font-size: 0.9rem; }
+        .action-btn {
+            width: 100%; padding: 15px; border: none; background: #f8f9fa; margin-bottom: 8px;
+            border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; color: #2c3e50;
+        }
+        .action-btn.danger { color: #e74c3c; background: #fdf2f2; }
+        .action-btn.cancel { background: #e2e8f0; margin-top: 5px; }
+
+        /* Style pour l'astuce en bas de page */
+        .footer-hint {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #95a5a6;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 0 10px;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🎒 Mon Sac de Rando</h1>
+
+    <div id="top-board" class="section">
+        <h2>Dans le sac / À vérifier</h2>
+        <div id="active-container"></div>
+    </div>
+
+    <div id="catalogue" class="section">
+        <h2>Inventaire complet (Réserve)</h2>
+        <div id="catalogue-container"></div>
+    </div>
+
+    <div class="section admin-panel">
+        <h2>⚙️ Ajouter du Matériel</h2>
+        
+        <label for="new-cat-name">Nouveau groupe (ex: 🧗 Escalade)</label>
+        <input type="text" id="new-cat-name" placeholder="Nom du groupe + Émoji">
+        <button onclick="addCategory()" class="btn btn-primary">Créer le groupe</button>
+
+        <label for="select-cat">Dans quel groupe ?</label>
+        <select id="select-cat"></select>
+        
+        <label for="new-item-name">Nouvel équipement (ex: 🧗 Corde 50m)</label>
+        <input type="text" id="new-item-name" placeholder="Nom de l'objet + Émoji">
+        <button onclick="addItem()" class="btn btn-primary">Ajouter à la liste</button>
+
+        <hr style="border: 0; border-top: 1px solid #ecf0f1; margin: 20px 0;">
+        <button onclick="resetAll()" class="btn btn-danger">🔄 Réinitialiser l'application</button>
+    </div>
+
+    <div class="footer-hint">
+        💡 <b>Astuce :</b> Appui long (sur téléphone) ou Clic droit (sur ordinateur) sur un équipement ou le titre d'un groupe pour le renommer ou le supprimer.
+    </div>
+
+    <div id="action-sheet-menu" class="action-sheet-overlay" onclick="closeActionSheet()">
+        <div class="action-sheet" onclick="event.stopPropagation()">
+            <div id="sheet-title" class="action-sheet-title">Options</div>
+            <button id="btn-rename" class="action-btn">✏️ Renommer</button>
+            <button id="btn-delete" class="action-btn danger">🗑️ Supprimer</button>
+            <button onclick="closeActionSheet()" class="action-btn cancel">Annuler</button>
+        </div>
+    </div>
+
+    <script>
+        const defaultCategories = {
+            "🏠 Abri et couchage": ["🏕️ Tente", "🛌️ Sac de couchage", "🛏️ Tapis de sol", "🛏️ Sac à viande", "🛏️ Appui tête", "🌟 Bâche"],
+            "🍽️ Cuisine et nourriture": ["🏺 Réchaud à gaz + cartouche", "🍴 Éponge et liquide vaisselle", "🍵 Mug / gobelet", "🍴 Couverts", "🍲 Popote", "🍲 Nourriture", "🌾 Barre de céréale", "💧 Filtre à eau + 2L d'eau", "💧 2 grandes gourdes"],
+            "🔦 Éclairage et sécurité": ["🔦 Lampe frontale", "🔦 Lampe portative", "🔋 Piles/batterie", "📢 Sifflet de survie", "🔪 Couteau multifonction", "🧭 Boussole / GPS"],
+            "🧼 Vêtements et protection": ["🧥 Veste imperméable", "🧣 Bonnet et gants", "👕 Vêtements de rechange", "👕 Vêtements chauds (soir)", "👖 Pantalon léger / short", "👖 Pantalon long", "👟 Chaussures de rando", "🧤 Lunettes de soleil", "☀️ Crème solaire", "🧢 Casquette"],
+            "🧼 Produits d'hygiène et secours": ["🧽 Serviette microfibre", "🚿 Gel douche", "🦷 Brosse à dents", "🦷 Dentifrice", "🧴Désinfectant mains", "🧻 Papier toilette", "🧺 Sac poubelle", "💊 Trousse de secours"]
+        };
+
+        let categories = JSON.parse(localStorage.getItem('structTrekV3')) || defaultCategories;
+        let itemStates = JSON.parse(localStorage.getItem('stateTrekV3')) || {};
+
+        let currentTargetType = null;
+        let currentTargetKey = null;
+        let currentTargetParent = null;
+
+        function render() {
+            const catContainer = document.getElementById('catalogue-container');
+            const activeContainer = document.getElementById('active-container');
+            const selectCat = document.getElementById('select-cat');
+
+            catContainer.innerHTML = '';
+            activeContainer.innerHTML = '';
+            selectCat.innerHTML = '';
+
+            for (let group in categories) {
+                let opt = document.createElement('option');
+                opt.value = group; opt.innerText = group;
+                selectCat.appendChild(opt);
+
+                let reserveBlock = document.createElement('div');
+                reserveBlock.className = 'category-block';
+                
+                let reserveTitle = document.createElement('div');
+                reserveTitle.className = 'category-title';
+                reserveTitle.innerText = group;
+                reserveTitle.oncontextmenu = (e) => triggerLongPress(e, 'group', group);
+                reserveBlock.appendChild(reserveTitle);
+
+                let activeBlock = document.createElement('div');
+                activeBlock.className = 'category-block';
+                
+                let activeTitle = document.createElement('div');
+                activeTitle.className = 'category-title';
+                activeTitle.innerText = group;
+                activeTitle.oncontextmenu = (e) => triggerLongPress(e, 'group', group);
+                activeBlock.appendChild(activeTitle);
+
+                let hasActiveItems = false;
+                let hasReserveItems = false;
+
+                categories[group].forEach(item => {
+                    let btn = document.createElement('div');
+                    btn.className = 'item';
+                    btn.innerText = item;
+                    
+                    btn.onclick = () => handleItemClick(item, group);
+                    btn.oncontextmenu = (e) => triggerLongPress(e, 'item', item, group);
+
+                    if (itemStates[item] === 'missing') {
+                        btn.classList.add('missing');
+                        activeBlock.appendChild(btn);
+                        hasActiveItems = true;
+                    } else if (itemStates[item] === 'present') {
+                        btn.classList.add('present');
+                        activeBlock.appendChild(btn);
+                        hasActiveItems = true;
+                    } else {
+                        reserveBlock.appendChild(btn);
+                        hasReserveItems = true;
+                    }
+                });
+
+                if (hasReserveItems) catContainer.appendChild(reserveBlock);
+                if (hasActiveItems) activeContainer.appendChild(activeBlock);
+            }
+        }
+
+        function handleItemClick(item, group) {
+            if (!itemStates[item]) {
+                itemStates[item] = 'missing';
+            } else if (itemStates[item] === 'missing') {
+                itemStates[item] = 'present';
+            } else {
+                delete itemStates[item];
+            }
+            save();
+            render();
+        }
+
+        function triggerLongPress(e, type, key, parentGroup = null) {
+            e.preventDefault();
+            currentTargetType = type;
+            currentTargetKey = key;
+            currentTargetParent = parentGroup;
+
+            document.getElementById('sheet-title').innerText = `Options pour : ${key}`;
+            document.getElementById('action-sheet-menu').style.display = 'flex';
+        }
+
+        function closeActionSheet() {
+            document.getElementById('action-sheet-menu').style.display = 'none';
+        }
+
+        document.getElementById('btn-rename').onclick = () => {
+            closeActionSheet();
+            let newName = prompt(`Entrez le nouveau nom pour "${currentTargetKey}" :`, currentTargetKey);
+            if (newName && newName.trim() !== "") {
+                newName = newName.trim();
+                if (currentTargetType === 'group') {
+                    categories[newName] = categories[currentTargetKey];
+                    delete categories[currentTargetKey];
+                } else if (currentTargetType === 'item') {
+                    let idx = categories[currentTargetParent].indexOf(currentTargetKey);
+                    if (idx !== -1) {
+                        categories[currentTargetParent][idx] = newName;
+                    }
+                    if (itemStates[currentTargetKey]) {
+                        itemStates[newName] = itemStates[currentTargetKey];
+                        delete itemStates[currentTargetKey];
+                    }
+                }
+                save();
+                render();
+            }
+        };
+
+        document.getElementById('btn-delete').onclick = () => {
+            closeActionSheet();
+            if (currentTargetType === 'group') {
+                if (confirm(`Voulez-vous supprimer définitivement le groupe "${currentTargetKey}" et TOUT son contenu ?`)) {
+                    categories[currentTargetKey].forEach(item => delete itemStates[item]);
+                    delete categories[currentTargetKey];
+                }
+            } else if (currentTargetType === 'item') {
+                categories[currentTargetParent] = categories[currentTargetParent].filter(i => i !== currentTargetKey);
+                delete itemStates[currentTargetKey];
+            }
+            save();
+            render();
+        }
+
+        function addCategory() {
+            let input = document.getElementById('new-cat-name');
+            let name = input.value.trim();
+            if (name && !categories[name]) {
+                categories[name] = [];
+                input.value = '';
+                save(); render();
+            }
+        }
+
+        function addItem() {
+            let cat = document.getElementById('select-cat').value;
+            let input = document.getElementById('new-item-name');
+            let name = input.value.trim();
+            if (cat && name && !categories[cat].includes(name)) {
+                categories[cat].push(name);
+                input.value = '';
+                save(); render();
+            }
+        }
+
+        function resetAll() {
+            if (confirm("Effacer toutes les modifications et revenir à la configuration d'usine ?")) {
+                localStorage.clear();
+                categories = JSON.parse(JSON.stringify(defaultCategories));
+                itemStates = {};
+                save(); render();
+            }
+        }
+
+        function save() {
+            localStorage.setItem('structTrekV3', JSON.stringify(categories));
+            localStorage.setItem('stateTrekV3', JSON.stringify(itemStates));
+        }
+
+        render();
+    </script>
+</body>
+</html>

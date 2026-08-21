@@ -1,0 +1,18 @@
+# Système Windows / macOS
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# Éditeurs
+.vscode/
+.idea/
+*.swp
+*~
+
+# Sauvegardes et temporaires
+*.bak
+*.tmp
+*.log
+*.orig
