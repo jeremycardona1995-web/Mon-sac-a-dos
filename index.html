@@ -191,15 +191,32 @@
             background: rgba(0, 0, 0, 0.62);
             -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
             justify-content: center; align-items: flex-end;
+            opacity: 0; transition: opacity .24s ease;
         }
         .voile.ouvert { display: flex; }
+        .voile.visible { opacity: 1; }
+        /* Pendant le repli au doigt, la feuille suit le geste sans retard. */
+        .voile.suit, .voile.suit .feuille { transition: none; }
+
         .feuille {
             background: var(--surface); width: 100%; max-width: 560px;
             border-radius: 24px 24px 0 0; border: 1px solid var(--bordure); border-bottom: none;
             padding: 10px 18px calc(18px + env(safe-area-inset-bottom));
-            max-height: 88vh; overflow-y: auto;
+            max-height: 88vh; overflow-y: auto; overscroll-behavior: contain;
+            transform: translateY(100%);
+            transition: transform .28s cubic-bezier(0.22, 0.61, 0.36, 1);
         }
-        .poignee { width: 42px; height: 4px; border-radius: 99px; background: #39404d; margin: 4px auto 14px; }
+        .voile.visible .feuille { transform: translateY(0); }
+
+        /* Barre de préhension : elle annonce que la feuille se tire vers le bas. */
+        .poignee {
+            width: 46px; height: 5px; border-radius: 99px; background: #454d5c;
+            margin: 6px auto 14px; cursor: grab;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .voile, .feuille { transition: none; }
+        }
         .feuille-titre {
             text-align: center; font-size: 13px; font-weight: 600;
             color: var(--attenue); margin-bottom: 14px; word-break: break-word;
@@ -686,20 +703,132 @@ function appuiLong(element, rappel) {
    ========================================================================== */
 
 const voile = document.getElementById('voile');
+const feuille = document.getElementById('feuille');
+
+/* L'ouverture est suivie par cette variable plutôt que par la classe : pendant
+   les trois dixièmes de seconde du repli, deux feuilles qui s'enchaînent
+   doivent pouvoir se remplacer sans que l'animation reparte du bas. */
+let feuilleOuverte = false;
+let minuteurFeuille = null;
 
 function ouvrirFeuille(titre, construire) {
-    if (voile.classList.contains('ouvert')) return;   /* garde-fou anti-doublon */
+    if (feuilleOuverte) return;   /* garde-fou anti-doublon */
+    feuilleOuverte = true;
+    clearTimeout(minuteurFeuille);
+
     document.getElementById('feuille-titre').textContent = titre;
     const corps = document.getElementById('feuille-corps');
     corps.innerHTML = '';
     construire(corps);
+
+    voile.classList.remove('suit');
+    voile.style.opacity = '';
+    feuille.style.transform = '';
+    feuille.scrollTop = 0;
+
+    const etaitFermee = !voile.classList.contains('ouvert');
     voile.classList.add('ouvert');
+    /* Une feuille qui apparaît doit monter depuis le bas : la lecture force le
+       calcul de la mise en page avant que la classe ne lance l'animation. */
+    if (etaitFermee) voile.offsetHeight;
+    voile.classList.add('visible');
     majEmojis();
 }
 
-function fermerFeuille() { voile.classList.remove('ouvert'); }
+function fermerFeuille() {
+    if (!feuilleOuverte) return;
+    feuilleOuverte = false;
+    voile.classList.remove('suit');
+    voile.style.opacity = '';
+    feuille.style.transform = '';
+    voile.classList.remove('visible');
+    clearTimeout(minuteurFeuille);
+    /* La feuille reste en place le temps de descendre, puis quitte l'écran. */
+    minuteurFeuille = setTimeout(() => {
+        if (!feuilleOuverte) voile.classList.remove('ouvert');
+    }, 300);
+}
 
 voile.addEventListener('click', e => { if (e.target === voile) fermerFeuille(); });
+
+/* Repli au glissement vers le bas, en plus de l'appui hors de la feuille.
+   Un contenu déjà défilé se défile d'abord : on ne replie qu'en haut de liste. */
+const SEUIL_FEUILLE = 90;
+
+(function feuilleRepliable() {
+    let departY = 0, depart = 0, ecart = 0, actif = false, glisse = false;
+
+    function peutCommencer(cible) {
+        if (!cible || !cible.closest) return false;
+        if (cible.closest('input, select, textarea')) return false;
+        let n = cible;
+        while (n && n !== feuille) {
+            if (n.scrollHeight > n.clientHeight + 1 && n.scrollTop > 0) return false;
+            n = n.parentNode;
+        }
+        return feuille.scrollTop <= 0;
+    }
+
+    function commencer(y, cible) {
+        if (!feuilleOuverte || !peutCommencer(cible)) return;
+        departY = y; depart = Date.now(); ecart = 0;
+        actif = true; glisse = false;
+    }
+
+    function deplacer(y) {
+        if (!actif) return false;
+        const dy = y - departY;
+        if (!glisse) {
+            /* Geste vers le haut : c'est un défilement, on rend la main. */
+            if (dy < -10) { actif = false; return false; }
+            if (dy < 10) return false;
+            glisse = true;
+            voile.classList.add('suit');
+        }
+        ecart = Math.max(0, dy);
+        feuille.style.transform = 'translateY(' + ecart + 'px)';
+        voile.style.opacity = Math.max(0.2, 1 - ecart / 420);
+        return true;
+    }
+
+    function terminer() {
+        if (!actif) return;
+        actif = false;
+        voile.classList.remove('suit');
+        if (!glisse) return;
+        /* Un geste bref et franc suffit, sans aller jusqu'au seuil. Le seuil de
+           vitesse évite qu'un défilement vif en haut de liste replie la feuille. */
+        const rapide = (Date.now() - depart) < 260 && ecart > 55;
+        if (ecart >= SEUIL_FEUILLE || rapide) { vibrer(10); fermerFeuille(); return; }
+        voile.style.opacity = '';
+        feuille.style.transform = '';
+    }
+
+    feuille.addEventListener('touchstart', e => {
+        commencer(e.touches[0].clientY, e.target);
+    }, { passive: true });
+    feuille.addEventListener('touchmove', e => {
+        /* Une fois le repli engagé, le défilement ne doit plus s'en mêler. */
+        if (deplacer(e.touches[0].clientY)) e.preventDefault();
+    }, { passive: false });
+    feuille.addEventListener('touchend', terminer);
+    feuille.addEventListener('touchcancel', terminer);
+
+    /* Souris : pas de preventDefault, les boutons et les champs restent actifs. */
+    feuille.addEventListener('mousedown', e => {
+        if (e.button !== 0) return;
+        commencer(e.clientY, e.target);
+
+        const surDeplacement = ev => deplacer(ev.clientY);
+        const surRelachement = () => {
+            document.removeEventListener('mousemove', surDeplacement);
+            document.removeEventListener('mouseup', surRelachement);
+            terminer();
+        };
+        document.addEventListener('mousemove', surDeplacement);
+        document.addEventListener('mouseup', surRelachement);
+    });
+})();
 
 function bouton(parent, libelle, classe, action) {
     const b = document.createElement('button');
@@ -1010,6 +1139,8 @@ function menuObjet(objet, groupe) {
             });
         });
 
+        bouton(corps, '📦 Changer de groupe', '', () => deplacerObjet(objet, groupe));
+
         bouton(corps, '⚖️ ' + (poids[objet] ? 'Modifier le poids (' + formaterPoids(poids[objet]) + ')' : 'Indiquer le poids'), '', () => {
             fermerFeuille();
             const saisie = prompt('Poids en grammes (laisser vide pour retirer) :', poids[objet] || '');
@@ -1030,6 +1161,50 @@ function menuObjet(objet, groupe) {
         });
 
         bouton(corps, 'Annuler', 'annuler', fermerFeuille);
+    });
+}
+
+/* Change un équipement de groupe. Son nom ne bouge pas : sa coche et son
+   poids, qui sont rangés sous ce nom, suivent sans rien avoir à reporter. */
+function deplacerObjet(objet, groupe) {
+    const cibles = Object.keys(categories).filter(g => g !== groupe);
+    if (!cibles.length) { fermerFeuille(); toast('Il n\u2019y a pas d\u2019autre groupe'); return; }
+
+    fermerFeuille();
+    ouvrirFeuille('Déplacer « ' + objet + ' »', corps => {
+        const zone = document.createElement('div');
+        zone.className = 'resultats';
+
+        cibles.forEach(cible => {
+            const b = document.createElement('button');
+            b.className = 'prop';
+
+            const nom = document.createElement('span');
+            nom.className = 'lib';
+            nom.textContent = cible;
+
+            const compte = document.createElement('span');
+            compte.className = 'dens';
+            compte.textContent = categories[cible].length + ' objet' +
+                                 (categories[cible].length > 1 ? 's' : '');
+
+            b.appendChild(nom);
+            b.appendChild(compte);
+            b.onclick = () => {
+                if (categories[cible].indexOf(objet) !== -1) {
+                    toast('Cet équipement existe déjà dans ce groupe');
+                    return;
+                }
+                categories[groupe] = categories[groupe].filter(o => o !== objet);
+                categories[cible].push(objet);
+                sauver(); afficher(); fermerFeuille();
+                toast('Déplacé dans « ' + cible + ' »');
+            };
+            zone.appendChild(b);
+        });
+
+        corps.appendChild(zone);
+        bouton(corps, 'Retour', 'annuler', () => { fermerFeuille(); menuObjet(objet, groupe); });
     });
 }
 

@@ -32,6 +32,10 @@ Un tutoriel s'affiche au premier lancement, et un second la première fois que
 vous ouvrez la vue Nourriture. Vous pouvez les revoir à tout moment depuis le
 menu **⋯**, qui propose celui de la vue en cours.
 
+Les fenêtres qui remontent du bas de l'écran — menus, ajout, réglages — se
+referment de trois façons : en les **tirant vers le bas**, en touchant l'écran
+au-dessus, ou par le bouton **Annuler**.
+
 ## Trouver et filtrer
 
 - Le champ de **recherche** filtre l'inventaire à la frappe, sans tenir compte
@@ -46,6 +50,9 @@ menu **⋯**, qui propose celui de la vue en cours.
 - **Renommer, peser ou supprimer** un équipement ou un groupe : appui long sur
   téléphone, clic droit sur ordinateur. Le renommage donne accès au sélecteur
   de symboles, qui remplace celui déjà en place sans toucher au reste du nom.
+- **Changer un équipement de groupe** : appui long, puis **Changer de groupe**.
+  Les autres groupes s'affichent avec leur nombre d'objets ; sa coche et son
+  poids suivent l'équipement.
 - **Choisir un symbole** : dans la fenêtre d'ajout, deux boutons ouvrent un
   sélecteur de 302 symboles répartis en 20 thèmes, l'un pour l'équipement,
   l'autre pour le groupe. Un champ de recherche les filtre par nom français —
